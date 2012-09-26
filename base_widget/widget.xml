@@ -2,8 +2,9 @@
 <widget title="Sample Widget">
     <library name="jquery"/>
     <library name="gtmob"/>
-	
+    <css file="my.css"/>
+    <javascript file="my.js"/>
     <html file="your_html.html"/>
-	<javascript file="your_html.js"/>
+    <javascript file="your_html.js"/>
     <library name="jquery.mobile"/> 
 </widget>
