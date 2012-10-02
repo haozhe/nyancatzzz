@@ -1,43 +1,63 @@
-<!--<div data-role="page">
+<div data-role="page" id="test_page">
     <div data-role='header' data-position='inline' data-theme='d'>
         <h1>Sample Widget Hello World ~~~</h1>
         <a href="#" data-icon='add' data-transition="pop">Other</a>
     </div>
 
     <div id="content" data-role="content">
-        <form name="go">
-            <input type="button" name="test" value="Simple Index" onclick="simpleIndex()">
-            <input type="button" name="test" value="Simple Get" onclick="simpleGet()">
-            <input type="button" name="test" value="Simple Post" onclick="simplePost()">
-            <input type="button" name="test" value="Simple Put" onclick="simplePut()">
-            <input type="button" name="test" value="Simple Delete" onclick="simpleDelete()">
 
-            <input type="button" name="test" value="Simple Index" onclick="simpleIndex()">
-            <input type="button" name="test" value="Simple Get" onclick="simpleGet()">
-            <input type="button" name="test" value="Simple Post" onclick="simplePost()">
-            <input type="button" name="test" value="Simple Put" onclick="simplePut()">
-            <input type="button" name="test" value="Simple Delete" onclick="simpleDelete()">
 
-            <input type="button" name="test" value="Simple Index" onclick="simpleIndex()">
-            <input type="button" name="test" value="Simple Get" onclick="simpleGet()">
-            <input type="button" name="test" value="Simple Post" onclick="simplePost()">
-            <input type="button" name="test" value="Simple Put" onclick="simplePut()">
-            <input type="button" name="test" value="Simple Delete" onclick="simpleDelete()">
-        </form>
+        <!--Testing APIs-->
+        <ul data-role="listview">
+            <li data-role="list-divider">APIs for Gripe</li>
+
+            <li><a onclick="getGripes()">Get a List of Gripes</a></li>
+            <li><a onclick="addGripe()">Add a single Gripe</a></li>
+            <li><a onclick="getGripe()">Get a single Gripe</a></li>
+
+            <li data-role="list-divider">APIS for User</li>
+            <!--            <input type="button" name="test" value="Simple add Gripe" onclick="addGripe()">
+                        <input type="button" name="test" value="Simple add Gripe" onclick="addGripe()">
+                        <input type="button" name="test" value="Simple add Gripe" onclick="addGripe()">
+                        <input type="button" name="test" value="Simple add Gripe" onclick="addGripe()">
+            
+                        <input type="button" name="test" value="Simple Index" onclick="simpleIndex()">
+            
+                        <input type="button" name="test" value="Simple Get" onclick="simpleGet()">
+                        <input type="button" name="test" value="Simple Post" onclick="simplePost()">
+            
+            
+                        <input type="button" name="test" value="Simple Put" onclick="simplePut()">
+                        <input type="button" name="test" value="Simple Delete" onclick="simpleDelete()">-->
+            <!--
+                        <input type="button" name="test" value="Simple Index" onclick="simpleIndex()">
+                        <input type="button" name="test" value="Simple Get" onclick="simpleGet()">
+                        <input type="button" name="test" value="Simple Post" onclick="simplePost()">
+                        <input type="button" name="test" value="Simple Put" onclick="simplePut()">
+                        <input type="button" name="test" value="Simple Delete" onclick="simpleDelete()">
+            
+                        <input type="button" name="test" value="Simple Index" onclick="simpleIndex()">
+                        <input type="button" name="test" value="Simple Get" onclick="simpleGet()">
+                        <input type="button" name="test" value="Simple Post" onclick="simplePost()">
+                        <input type="button" name="test" value="Simple Put" onclick="simplePut()">
+                        <input type="button" name="test" value="Simple Delete" onclick="simpleDelete()">-->
+            <li data-role="list-divider">Link for GUI</li>
+            <li><a href="#page6">Goto GUI</a></li>
+        </ul>
         <div id='IndexResult'></div>
         <div id='GetResult'></div>
         <div id='PostResult'></div>
         <div id='PutResult'></div>
         <div id='DeleteResult'></div>
     </div>
-</div>-->
+</div>
 
-<!-- Front Page -->
 <div data-role="page" data-theme="b" id="page6">
     <div data-theme="b" data-role="header">
         <h3>
             Gripe
         </h3>
+        <a data-role="button" href="#test_page">Test</a>
     </div>
     <div data-role="content">
         <a href="">
@@ -66,10 +86,10 @@
             Introduction
         </a>
     </div>
-
+        
 </div>
-
-<!-- Introduction -->
+    
+ Introduction 
 <div data-role="page" data-theme="b" id="page15">
     <div data-theme="b" data-role="header">
         <h3>
@@ -125,10 +145,10 @@
             </div>
         </div>
     </div>
-
+        
 </div>
-
-<!-- Home -->
+    
+ Home 
 <div data-role="page" data-theme="b" id="page11">
     <div data-theme="b" data-role="header">
         <h3>
@@ -157,7 +177,7 @@
     </div>
     <div data-role="content">
         <ul data-role="listview" data-divider-theme="b" data-inset="false">
-            <li data-role="list-divider" role="heading">
+            <li data-role="list-divider">
                 My Gripes
             </li>
             <li data-theme="c">
@@ -216,8 +236,8 @@
         </div>
     </div>
 </div>
-
-<!-- Profile -->
+    
+ Profile 
 <div data-role="page" data-theme="b" id="page16">
     <div data-theme="b" data-role="header">
         <a data-role="button" href="#page16" data-icon="gear" data-iconpos="notext"
@@ -236,7 +256,7 @@
             <img style="width: 156px; height: 179px" src="http://gtneuro.files.wordpress.com/2010/06/gpburdell.jpg">
         </div>
         <ul data-role="listview" data-divider-theme="b" data-inset="true">
-            <li data-role="list-divider" role="heading">
+            <li data-role="list-divider">
                 Your Profile
             </li>
             <li data-theme="c">
@@ -284,7 +304,7 @@
         </div>
     </div>
 </div>
-<!-- Browse - Top -->
+ Browse - Top 
 <div data-role="page" data-theme="b" id="page10">
     <div data-theme="b" data-role="header">
         <a data-role="button" data-rel="back" href="#page10" data-icon="arrow-l"
@@ -316,7 +336,7 @@
     </div>
     <div data-role="content">
         <ul data-role="listview" data-divider-theme="b" data-inset="false">
-            <li data-role="list-divider" role="heading">
+            <li data-role="list-divider">
                 Top Gripe of the Month
             </li>
             <li data-theme="c">
@@ -334,7 +354,7 @@
                     Gripe 3
                 </a>
             </li>
-            <li data-role="list-divider" role="heading">
+            <li data-role="list-divider">
                 Trending Gripe
             </li>
             <li data-theme="c">
@@ -376,7 +396,7 @@
         </div>
     </div>
 </div>
-<!-- Browse - Search -->
+ Browse - Search 
 <div data-role="page" data-theme="b" id="page12">
     <div data-theme="b" data-role="header">
         <h3>
@@ -488,7 +508,7 @@
         </div>
     </div>
 </div>
-<!-- Browse - Nearby -->
+ Browse - Nearby 
 <div data-role="page" data-theme="b" id="page17">
     <div data-theme="b" data-role="header">
         <a data-role="button" data-rel="back" href="#page17" data-icon="arrow-l"
@@ -544,7 +564,7 @@
         </div>
     </div>
 </div>
-<!-- Notification -->
+ Notification 
 <div data-role="page" data-theme="b" id="page22">
     <div data-theme="b" data-role="header">
         <h3>
@@ -561,7 +581,7 @@
     </div>
     <div data-role="content">
         <ul data-role="listview" data-divider-theme="b" data-inset="false">
-            <li data-role="list-divider" role="heading">
+            <li data-role="list-divider">
                 Notifications
             </li>
             <li data-theme="c">
@@ -604,7 +624,7 @@
         </div>
     </div>
 </div>
-<!-- Add Gripe -->
+ Add Gripe 
 <div data-role="page" data-theme="b" id="page20">
     <div data-theme="b" data-role="header">
         <h3>
@@ -617,7 +637,7 @@
     </div>
     <div data-role="content">
         <ul data-role="listview" data-divider-theme="b" data-inset="false">
-            <li data-role="list-divider" role="heading">
+            <li data-role="list-divider">
                 Add new Gripe
             </li>
         </ul>
@@ -748,8 +768,8 @@
         </div>
     </div>
 </div>
-
-<!-- Single Non-Serious Gripe -->
+    
+ Single Non-Serious Gripe 
 <div data-role="page" data-theme="b" id="page19">
     <div data-theme="b" data-role="header">
         <h3>
@@ -777,7 +797,7 @@
                     </p>
                     <p>
                         <span style="font-size: xx-small; " data-mce-style="font-size: xx-small;">
-                            College of ManagementProfessor
+                            College of Management Professor
                         </span>
                     </p>
                 </div>
@@ -816,8 +836,8 @@
         </div>
     </div>
 </div>
-
-<!-- Single Serious Gripe -->
+    
+ Single Serious Gripe 
 <div data-role="page" data-theme="b" id="page14">
     <div data-theme="b" data-role="header">
         <h3>

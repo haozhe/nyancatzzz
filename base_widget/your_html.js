@@ -49,3 +49,22 @@ function simpleDelete(){
 		}
 	});
 }
+
+function addGripe(){
+        $.ajax({
+            url: "api/gripe",
+            context: document.body,
+            type:"POST",
+            data: {'title':'some gripe title','content':'some gripe content'},
+            success: function (data){
+                alert(data);    
+            }
+            
+        });
+    
+}
+
+//Stan to Blacki: you should implement js function calls to call all apis below, they are just like the functions above
+//necessary data is in the api doc
+//remember to change type according to the input type in the api doc
+//url is also in the api doc
