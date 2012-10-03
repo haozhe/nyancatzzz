@@ -1,0 +1,453 @@
+<script src="http://maps.google.com/maps/api/js?sensor=true" type="text/javascript"></script>
+
+<!-- Home Page -->
+<div data-role="page" id="home" data-theme="d"> <!--index-->
+	<div data-role="header" data-theme="d" data-position="fixed">
+		<h1>Food Finder</h1>
+		<a id="login_button" href="#" data-transition="pop" style="margin-left:-3%;"><div id='login' class='login'>login</div><div id='logout' class='logout'>logout</div></a>
+	</div>
+	<div data-role="content" data-theme="d">
+		<div data-role="content" data-theme="d">
+        <a href="#foodtoday" data-transition="slide" style="margin-left:3%; margin-top:14%; float:left;"><img src="../../foodfinder/pic/index_pic/food_today.png" width="103" height="106" onclick="listAllMeals();"></a>
+        <a href="#foodtomorrow" data-transition="slide" style="margin-left:14%; margin-top:14%; float:left;"><img src="../../foodfinder/pic/index_pic/Food_tomorrow.png" width="102" height="107"></a>
+		<a href="#hot" data-transition="slide" style="margin-left:3%; margin-top:14%; float:left;"><img src="../../foodfinder/pic/index_pic/hot_item.png" width="103" height="106"></a>
+        <a href="#dining" data-transition="slide" style="margin-left:14%; margin-top:14%; float:left;"><img src="../../foodfinder/pic/index_pic/find_location.png" width="103" height="106"></a>
+		</div> <!--content end-->
+    </div> <!--content end-->
+    <div data-role="footer" class="nav-glyphish-example" data-position="fixed" data-theme="d">
+        <div data-role="navbar" class="nav-glyphish-example" data-grid="c" data-theme="c">
+        <ul>
+            <li><a href="#home" data-icon="grid" data-theme="c">Home</a></li>
+            <li><a href="#foodtoday" data-icon="star" data-theme="c" onclick="listAllMeals();">Foods</a></li>
+            <li><a href="#aboutme" data-icon="info" data-theme="c">About Me</a></li>
+	      <li><a href="#settings" data-icon="gear" data-theme="c">Settings</a></li>
+        </ul>
+        </div>
+	</div>
+</div>
+
+<!-- Food List -->
+<div data-role="page" id="foodtoday" data-theme="d" data-add-back-btn="true">
+    <div data-role="header" data-theme="d" data-position="fixed">
+        <a href="#" data-rel="back" data-icon='back' data-iconpos="notext"></a>
+            <h1>Food Finder</h1> 
+    </div> <!--header end-->
+    <div data-role="content">
+        <div class="content-primary">
+            <script id="foodListTemplate" type="text/x-jquery-tmpl">
+                <li id="foodItem" onclick="foodDetailClick('${foodID}');">
+                    <a href="#foodInfoMain">
+                        <img src="${foodImg}"/>
+                        <h3>${foodName}</h3>
+                        <p>$ ${foodPrice}</p>
+						<span class="ui-li-count">${rating}/${reviews}</span>
+                    </a>
+                </li>
+            </script>
+			<div><ul data-role="listview" data-filter="true" data-filter-placeholder="Search food name or category..." data-split-theme="d" id="searchResultsList"></ul></div>
+            <div class="no_results_message" id="food_no_results_message">
+                <h3>Loading...</h3>
+            </div>
+        </div>
+    </div>
+    <div data-role="footer" class="nav-glyphish-example" data-position="fixed" data-theme="d">
+        <div data-role="navbar" class="nav-glyphish-example" data-grid="c" data-theme="c">
+        <ul>
+            <li><a href="#home" data-icon="grid" data-theme="c">Home</a></li>
+            <li><a href="#foodtoday" data-icon="star" data-theme="c">Foods</a></li>
+            <li><a href="#aboutme" data-icon="info" data-theme="c">About Me</a></li>
+			<li><a href="#settings" data-icon="gear" data-theme="c">Settings</a></li>
+        </ul>
+        </div>
+	</div>
+</div>
+
+<!-- Comment Dialog -->
+<div data-role="content" data-theme="c" id="commentDialog">       
+	<script id="commentDetailDialogTemplate" type="text/x-jquery-tmpl">
+	<li>
+		<h2>${uid}</h2>
+		<p>${commentText}</p>
+	</li>
+	</script>
+	<ul data-role="listview" data-theme="d" id="commentDialogDetail"></ul>
+	<h4>What do you want to do?</h4>
+	<a href="#" data-role="button" data-rel="back" data-theme="b" onclick="commentHelpful();">Like!</a>   
+	<a href="#profile" data-role="button" data-theme="b" onclick="checkoutProfile();">Who is this</a>       
+	<a href="#" data-role="button" data-rel="back" data-theme="c">Cancel</a>    
+</div>
+
+<!-- Food Detail -->
+<div data-role="page" id="foodInfoMain" data-theme="d" data-add-back-btn="true" >
+    <div data-role="header" data-theme="d" data-position="fixed">
+        <a href="#" data-rel="back" data-icon='back' data-iconpos="notext"></a>
+            <h1>Food Finder</h1> 
+    </div> <!--header end-->
+    
+	<div data-role="content" class="ui-body ui-body-a" data-theme="d">
+	<script id="foodInfoTemplate" type="text/x-jquery-tmpl">
+        <li>
+            <img width="110" height="100" src="${foodImg}" style="float:left;"/>
+			<h3 id="fname" style="float:left; margin-left:5%;">${foodName}</h3>
+             <h4 style="float:left; margin-left:5%; margin-top:-10px;">Rating: ${rating} (${reviews} reviews)</h4>
+            <p style="float:right; margin-right:10%; margin-top:-10px;">$ ${foodPrice}</p>
+            <p style="float:left; margin-left:0; margin-top:5%">${foodIng}</p>
+        </li>
+		</script>
+		<div class="content-primary">
+			<ul data-role="listview" id="foodDetailInfo"></ul>
+		</div>
+	</div>
+	<div data-role="content" data-theme="d">
+		<a href="#foodReviews" data-role="button">Read Reviews</a>
+		<a href="#writeReview" data-rel="dialog" data-transition="slideup" data-role="button" onclick="draftReview();">Draft a Review</a>
+		<div id='bookmarkit' data-role="button" data-icon='check' data-theme="b" class='bookmarkit' onclick="addBookmark();">Add Bookmark</div>
+		<div id='unbookmarkit' data-role="button" data-icon='delete' data-theme="e" class='unbookmarkit' onclick="removeBookmark();">Remove Bookmark</div>
+	</div>
+    <div data-role="footer" class="nav-glyphish-example" data-position="fixed" data-theme="d">
+        <div data-role="navbar" class="nav-glyphish-example" data-grid="c" data-theme="c">
+        <ul>
+            <li><a href="#home" data-icon="grid" data-theme="c">Home</a></li>
+            <li><a href="#foodtoday" data-icon="star" data-theme="c">Foods</a></li>
+            <li><a href="#aboutme" data-icon="info" data-theme="c">About Me</a></li>
+			<li><a href="#settings" data-icon="gear" data-theme="c">Settings</a></li>
+        </ul>
+        </div>
+	</div>
+</div>
+
+<!-- Food Reviews -->
+<div data-role="page" id="foodReviews" data-theme="d" data-add-back-btn="true" >
+    <div data-role="header" data-theme="d" data-position="fixed">
+        <a href="#" data-rel="back" data-icon='back' data-iconpos="notext"></a>
+            <h1>Food Finder</h1> 
+    </div> <!--header end-->
+    <script id="foodCommentTemplate" type="text/x-jquery-tmpl">
+        <li id="commentItem" onclick="commentDetailClick('${commentID}', '${uid}', '${commentText}');">
+        <a href="#commentDialog" data-rel="dialog" data-transition="slideup">
+            <img src="${picture}"></img>
+			<h3>${uid}</h3>
+            <p>${commentText}</p>
+			<p>${timestamp}</p>
+            <span class="ui-li-count">${helpful}</span>
+        </a>
+        </li>
+    </script>
+    <ul data-role="listview" data-theme="c" id="commentList"></ul>
+    <div class="no_results_message" id="comment_no_results_message">
+        <h3>Loading...</h3>
+    </div>
+    <div data-role="footer" class="nav-glyphish-example" data-position="fixed" data-theme="d">
+        <div data-role="navbar" class="nav-glyphish-example" data-grid="c" data-theme="c">
+        <ul>
+            <li><a href="#home" data-icon="grid" data-theme="c">Home</a></li>
+            <li><a href="#foodtoday" data-icon="star" data-theme="c">Foods</a></li>
+            <li><a href="#aboutme" data-icon="info" data-theme="c">About Me</a></li>
+	      <li><a href="#settings" data-icon="gear" data-theme="c">Settings</a></li>
+        </ul>
+        </div>
+	</div>
+</div>
+
+<!-- Draft a Review -->
+<div data-role="page" id="writeReview" data-theme="d" data-add-back-btn="true">
+    <div data-role="header" data-theme="d" >
+        <h1>Food Finder</h1> 
+    </div> <!--header end-->
+    <div data-role="fieldcontain" data-theme="a">
+        <label for="select-choice-a" class="select">Rate: </label>
+        <select name="ratingMenu" id="ratingMenu" data-native-menu="false">
+            <option>Rate it</option>
+            <option value="star5">Perfect!</option>
+            <option value="star4">Good</option>
+            <option value="star3">OK</option>
+            <option value="star2">So so</option>
+            <option value="star1">Hmmmmm</option>
+        </select>
+   </div>
+    <div data-role="fieldcontain">
+        <label for="textarea">Comment:</label>
+        <textarea cols="40" rows="8" name="textarea" id="textarea"></textarea>
+    </div>
+    <a id="addButton" href="#foodReviews" data-role="button" data-theme="c">Submit</a>  
+</div> 
+
+<!-- profile dialog -->
+<div data-role="content" data-theme="c" id="profileDialog">       
+	<h4>What do you want to do?</h4>
+	<a href="#" data-role="button" data-rel="back" data-theme="b" onclick="addFriend();">Add Friend</a>   
+	<a href="#" data-role="button" data-theme="b">Block</a>       
+	<a href="#" data-role="button" data-rel="back" data-theme="c">Cancel</a>    
+</div>
+
+<!-- User Profile (not about me) -->
+<div data-role="page" id="profile" data-theme="d" data-add-back-btn="true">
+	<div data-role="header" data-theme="d" data-position="fixed">
+		<a href="#" data-rel="back" data-icon='back' data-iconpos="notext"></a>
+			<h1>Food Finder</h1> 
+	</div>
+	<div data-role="content" data-theme="d">
+		<script id="profileTemplate" type="text/x-jquery-tmpl">
+			<li><a href="#profileDialog" data-rel="dialog" data-transition="slideup"> 
+				<img src="${userImg}" /> 
+				<h3>${uid}</h3> 
+				<p>${numOfReviews} reviews</p> 
+                <p>${numOfFriends} friends</p> 
+				</a>
+			</li> 
+	
+            <li><img src="../../foodfinder/pic/user/comment.png"  class="ui-li-icon">Comments <span class="ui-li-count">${numOfReviews}</span>
+			</li>
+		</script>
+		<div class="content-primary">
+			<ul data-role="listview" id="profileDetail"></ul>
+		</div>
+		
+		<script id="userCommentTemplate" type="text/x-jquery-tmpl">
+			<li>
+				<img src="${foodImg}"></img>
+				<h4>${foodName}</h4>
+				<p>${commentText}</p>
+				<span class="ui-li-count">${helpful}</span>
+			</li>
+		</script>
+		
+		<ul data-role="listview" data-theme="c" id="userCommentsList"></ul>
+		
+		<div class="no_results_message" id="user_comment_no_results_message">
+			<h3>No comment yet</h3>
+		</div>
+	</div>
+	<div data-role="footer" class="nav-glyphish-example" data-position="fixed" data-theme="d">
+        <div data-role="navbar" class="nav-glyphish-example" data-grid="c" data-theme="c">
+        <ul>
+            <li><a href="#home" data-icon="grid" data-theme="c">Home</a></li>
+            <li><a href="#foodtoday" data-icon="star" data-theme="c">Foods</a></li>
+            <li><a href="#aboutme" data-icon="info" data-theme="c">About Me</a></li>
+	      <li><a href="#settings" data-icon="gear" data-theme="c">Settings</a></li>
+        </ul>
+        </div>
+	</div>
+</div>
+
+<!-- About me -->
+<div data-role="page" id="aboutme" data-theme="d" data-add-back-btn="true">
+	<div data-role="header" data-theme="d" data-position="fixed">
+		<a href="#" data-rel="back" data-icon='back' data-iconpos="notext"></a>
+			<h1>Food Finder</h1> 
+	</div>
+	<div data-role="content" data-theme="d">
+		<script id="aboutmeTemplate" type="text/x-jquery-tmpl">
+			<li> 
+				<img src="${userImg}" /> 
+				<h3>${uid}</h3> 
+				<p>${numOfReviews} reviews</p> 
+                <p>${numOfFriends} friends</p> 
+			</li> 
+		</script>
+		<div class="content-primary">
+			<ul data-role="listview" id="aboutmeDetail"></ul>
+		</div>
+		
+		<div data-role="content" data-theme="d">
+		<a href="#aboutmeBookmarks" data-role="button" onclick="prepareBookmarks();">Bookmarks</a>
+		<a href="#aboutmeComments" data-role="button" onclick="prepareComments();">My Comments</a>
+		<a href="#aboutmeFriendList" data-role="button" onclick="prepareFriendList();">Friends</a>
+		</div>
+		
+	</div>
+	<div data-role="footer" class="nav-glyphish-example" data-position="fixed" data-theme="d">
+        <div data-role="navbar" class="nav-glyphish-example" data-grid="c" data-theme="c">
+        <ul>
+            <li><a href="#home" data-icon="grid" data-theme="c">Home</a></li>
+            <li><a href="#foodtoday" data-icon="star" data-theme="c">Foods</a></li>
+            <li><a href="#aboutme" data-icon="info" data-theme="c">About Me</a></li>
+	      <li><a href="#settings" data-icon="gear" data-theme="c">Settings</a></li>
+        </ul>
+        </div>
+	</div>
+</div>
+
+<!-- aboutme bookmark -->
+<div data-role="page" id="aboutmeBookmarks" data-theme="d" data-add-back-btn="true">
+    <div data-role="header" data-theme="d" data-position="fixed">
+        <a href="#" data-rel="back" data-icon='back' data-iconpos="notext"></a>
+            <h1>Food Finder</h1> 
+    </div> <!--header end-->
+    <div data-role="content">
+        <div class="content-primary">
+            <script id="bookmarkTemplate" type="text/x-jquery-tmpl">
+                <li id="foodItem" onclick="foodDetailClick('${foodID}');">
+                    <a href="#foodInfoMain">
+                        <img src="${foodImg}"/>
+                        <h3>${foodName}</h3>
+                        <p>$ ${foodPrice}</p>
+						<span class="ui-li-count">${rating}/${reviews}</span>
+                    </a>
+                </li>
+            </script>
+			<div><ul data-role="listview" data-filter="true" data-filter-placeholder="Search food name or category..." data-split-theme="d" id="bookmarklist"></ul>
+			</div>
+            <div class="no_results_message" id="bookmark_no_results_message">
+                <h3>No Bookmarks yet...</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- aboutme friendlist -->
+<div data-role="page" id="aboutmeFriendList" data-theme="d" data-add-back-btn="true">
+    <div data-role="header" data-theme="d" data-position="fixed">
+        <a href="#" data-rel="back" data-icon='back' data-iconpos="notext"></a>
+            <h1>Food Finder</h1> 
+    </div> <!--header end-->
+    <div data-role="content">
+        <div class="content-primary">
+            <script id="friendlistTemplate" type="text/x-jquery-tmpl">
+                <li>
+                    <a href="#profile" id="friendItem" onclick="getFriendInfo('${fid}');">
+                        <img src="${friendImg}"></img>
+						<h3>${fid}</h3>
+						<span class="ui-li-count">${numOfFriends}</span>
+                    </a>
+                </li>
+            </script>
+			<div><ul data-role="listview" data-filter="true" data-filter-placeholder="Search food name or category..." data-split-theme="d" id="friendlistlist"></ul>
+			</div>
+            <div class="no_results_message" id="friendlist_no_results_message">
+                <h3>No Friend yet...</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- aboutme comments -->
+<div data-role="page" id="aboutmeComments" data-theme="d" data-add-back-btn="true">
+    <div data-role="header" data-theme="d" data-position="fixed">
+        <a href="#" data-rel="back" data-icon='back' data-iconpos="notext"></a>
+            <h1>Food Finder</h1> 
+    </div> <!--header end-->
+    <div data-role="content">
+        <div class="content-primary">
+            <script id="aboutmeCommentTemplate" type="text/x-jquery-tmpl">
+                <li>
+					<img src="${foodImg}"></img>
+					<h4>${foodName}</h4>
+					<p>${commentText}</p>
+					<span class="ui-li-count">${helpful}</span>
+				</li>
+            </script>
+			<ul data-role="listview" data-theme="c" id="aboutmeCommentsList"></ul>
+			<div class="no_results_message" id="aboutme_comment_no_results_message">
+				<h3>No comment yet</h3>
+			</div>
+        </div>
+    </div>
+</div> <!--foodtoday end-->
+
+<!-- dining -->
+<div data-role="page" id="dining" data-theme="d"> <!--index-->
+	<div data-role="header" data-theme="d"> 
+            <a href="#" data-rel="back" data-icon='back' data-iconpos="notext"></a>
+              <h1>Food Finder</h1>
+      </div> <!--header end-->
+   
+	<div data-role="content"  data-theme="c">	
+		<div id="mapCanvas" style="width:300px; height:300px;"></div>
+			<script type="text/javascript">	 
+				initializeGoogleMap();
+				console.log("Google Map");
+				newTorch("title");
+			</script>
+	</div> <!--map end-->
+	<div data-role="footer" class="nav-glyphish-example" data-position="fixed" data-theme="d">
+        <div data-role="navbar" class="nav-glyphish-example" data-grid="c" data-theme="c">
+        <ul>
+            <li><a href="#home" data-icon="grid" data-theme="c">Home</a></li>
+            <li><a href="#foodtoday" data-icon="star" data-theme="c">Foods</a></li>
+            <li><a href="#aboutme" data-icon="info" data-theme="c">About Me</a></li>
+            <li class="Settings"><a href="#" onclick="checkSettingsStatus()" data-icon="gear" data-theme="c">Settings</a></li>
+        </ul>
+        </div>
+	</div>
+</div><!--content end-->
+
+<!-- hot -->
+<div data-role="page" id="hot"  data-theme="d" data-add-back-btn="true" >
+	<div data-role="header"  data-theme="d" data-position="fixed">
+		<a href="#" data-rel="back" data-icon='back' data-iconpos="notext"></a>
+		<h1>Most Popular</h1>
+	</div>
+	<div data-role="content"> 
+		<div class="content-primary">
+			<script id="hotTemplate" type="text/x-jquery-tmpl">
+				<li id="hotFoodItem" onclick="foodDetailClick('${foodID}');">
+					<a href="#foodInfoMain">
+						<img src="${foodImg}"/>
+						<h3>${foodName}</h3>
+						<p>$ ${foodPrice}</p>
+						<span class="ui-li-count">${rating}/${reviews}</span>
+					</a>
+				</li>
+			</script>
+			<div><ol data-role="listview" data-filter="true" data-filter-placeholder="Search food name or category..." data-split-theme="d" id="hotlist"></ol>
+			</div>
+		</div>
+	</div>
+	<div data-role="footer" class="nav-glyphish-example" data-position="fixed" data-theme="d">
+		<div data-role="navbar" class="nav-glyphish-example" data-grid="c" data-theme="c">
+		<ul>
+			<li><a href="#home" data-icon="grid" data-theme="c">Home</a></li>
+			<li><a href="#foodtoday" data-icon="star" data-theme="c">Foods</a></li>
+			<li><a href="#aboutme" data-icon="info" data-theme="c">About Me</a></li>
+			<li class="Settings"><a href="#" onclick="checkSettingsStatus()" data-icon="gear" data-theme="c">Settings</a></li>
+		</ul>
+		</div>
+	</div>
+</div>
+
+<!-- recommand -->
+<div data-role="page" id="foodtomorrow">
+	<div data-role="header" data-theme="d" data-position="fixed"> 
+		<a href="#" data-rel="back" data-icon='back' data-iconpos="notext"></a>
+			<h1>Food Finder</h1>
+	</div> <!--header end-->
+     
+	<div data-role="content" data-theme="c">	<!--content-->
+		<div data-role="fieldcontain" style="margin-top:-10%;">
+			<fieldset data-role="controlgroup">
+				<legend>Give suggestions for tomorrow's food</legend>
+				<input type="radio" name="radio-choice-1" id="radio-choice-1" value="choice-1" checked="checked"/>
+				<label for="radio-choice-1">Nori Rice </label>
+				<input type="radio" name="radio-choice-1" id="radio-choice-2" value="choice-2"  />
+				<label for="radio-choice-2">Tempura Vegetables</label>
+				<input type="radio" name="radio-choice-1" id="radio-choice-3" value="choice-3"  />
+				<label for="radio-choice-3">Miso Tofu </label>
+				<input type="radio" name="radio-choice-1" id="radio-choice-4" value="choice-4"  />
+				<label for="radio-choice-4">Fresh Broccoli</label>  
+				<input type="radio" name="radio-choice-5" id="radio-choice-5" value="choice-5"  />
+				<label for="radio-choice-5">Chinese Long Beans </label>  
+			</fieldset>
+			<div data-role="fieldcontain" style="margin-right:5%; margin-top:-10%;">
+				<label for="textarea">Your Suggestions:</label>
+				<textarea name="textarea" id="textarea"></textarea>
+			</div>
+			<div style="text-align:center">
+				<a href="index.html" data-role="button" data-inline="true">Cancel</a>
+				<a href="index.html" data-role="button" data-inline="true" data-theme="b">Submit</a>
+			</div>
+        
+		</div><!--content end-->	
+	</div>	
+	<div data-role="footer" class="nav-glyphish-example" data-position="fixed" data-theme="d">
+		<div data-role="navbar" class="nav-glyphish-example" data-grid="c" data-theme="c">
+		<ul>
+			<li><a href="#home" data-icon="grid" data-theme="c">Home</a></li>
+			<li><a href="#foodtoday" data-icon="star" data-theme="c" onclick="listAllMeals();">Foods</a></li>
+			<li><a href="#aboutme" data-icon="info" data-theme="c">About Me</a></li>
+			<li><a href="#settings" data-icon="gear" data-theme="c">Settings</a></li>
+		</ul>
+		</div>
+	</div>
+</div>
+
