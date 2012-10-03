@@ -11,11 +11,20 @@
         <ul data-role="listview">
             <li data-role="list-divider">APIs for Gripe</li>
 
-            <li><a onclick="getGripes()">Get a List of Gripes</a></li>
-            <li><a onclick="addGripe()">Add a single Gripe</a></li>
-            <li><a onclick="getGripe()">Get a single Gripe</a></li>
+            <li><a onclick="getGripes({'u': 0})">Get a List of Gripes with u = 0 (user id)</a></li>
+            <li><a onclick="addGripe({'title':'some gripe title','content':'some gripe content'})">Add a single Gripe with test title & content</a></li>
+            <li><a onclick="getGripe(1)">Get a single Gripe with gripe id = 1</a></li>
+            <li><a onclick="updateGripe(1, {'status': 1, 'vote':1})">Update gripe #1 to status 1 and vote +1</a></li>
 
-            <li data-role="list-divider">APIS for User</li>
+            <li data-role="list-divider">APIs for User</li>
+            <li><a onclick="getGripes({'u': 0})">Get a List of Gripes with u = 0 (user id)</a></li>
+            <li><a onclick="addGripe({'title':'some gripe title','content':'some gripe content'})">Add a single Gripe with test title & content</a></li>
+            <li><a onclick="getGripe(1)">Get a single Gripe with gripe id = 1</a></li>
+            <li><a onclick="updateGripe(1, {'status': 1, 'vote':1})">Update gripe #1 to status 1 and vote +1</a></li>
+
+            <li data-role="list-divider">APIs for Report</li>
+            <li><a onclick="getGripes({'u': 0})">Get a List of Gripes with u = 0 (user id)</a></li>
+
             <!--            <input type="button" name="test" value="Simple add Gripe" onclick="addGripe()">
                         <input type="button" name="test" value="Simple add Gripe" onclick="addGripe()">
                         <input type="button" name="test" value="Simple add Gripe" onclick="addGripe()">
@@ -86,10 +95,10 @@
             Introduction
         </a>
     </div>
-        
+
 </div>
-    
- Introduction 
+
+Introduction 
 <div data-role="page" data-theme="b" id="page15">
     <div data-theme="b" data-role="header">
         <h3>
@@ -145,10 +154,10 @@
             </div>
         </div>
     </div>
-        
+
 </div>
-    
- Home 
+
+Home 
 <div data-role="page" data-theme="b" id="page11">
     <div data-theme="b" data-role="header">
         <h3>
@@ -236,8 +245,8 @@
         </div>
     </div>
 </div>
-    
- Profile 
+
+Profile 
 <div data-role="page" data-theme="b" id="page16">
     <div data-theme="b" data-role="header">
         <a data-role="button" href="#page16" data-icon="gear" data-iconpos="notext"
@@ -304,7 +313,7 @@
         </div>
     </div>
 </div>
- Browse - Top 
+Browse - Top 
 <div data-role="page" data-theme="b" id="page10">
     <div data-theme="b" data-role="header">
         <a data-role="button" data-rel="back" href="#page10" data-icon="arrow-l"
@@ -396,7 +405,7 @@
         </div>
     </div>
 </div>
- Browse - Search 
+Browse - Search 
 <div data-role="page" data-theme="b" id="page12">
     <div data-theme="b" data-role="header">
         <h3>
@@ -508,7 +517,7 @@
         </div>
     </div>
 </div>
- Browse - Nearby 
+Browse - Nearby 
 <div data-role="page" data-theme="b" id="page17">
     <div data-theme="b" data-role="header">
         <a data-role="button" data-rel="back" href="#page17" data-icon="arrow-l"
@@ -564,7 +573,7 @@
         </div>
     </div>
 </div>
- Notification 
+Notification 
 <div data-role="page" data-theme="b" id="page22">
     <div data-theme="b" data-role="header">
         <h3>
@@ -624,7 +633,7 @@
         </div>
     </div>
 </div>
- Add Gripe 
+Add Gripe 
 <div data-role="page" data-theme="b" id="page20">
     <div data-theme="b" data-role="header">
         <h3>
@@ -768,8 +777,8 @@
         </div>
     </div>
 </div>
-    
- Single Non-Serious Gripe 
+
+Single Non-Serious Gripe 
 <div data-role="page" data-theme="b" id="page19">
     <div data-theme="b" data-role="header">
         <h3>
@@ -836,8 +845,8 @@
         </div>
     </div>
 </div>
-    
- Single Serious Gripe 
+
+Single Serious Gripe 
 <div data-role="page" data-theme="b" id="page14">
     <div data-theme="b" data-role="header">
         <h3>
