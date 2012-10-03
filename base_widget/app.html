@@ -17,13 +17,12 @@
             <li><a onclick="updateGripe(1, {'status': 1, 'vote':1})">Update gripe #1 to status 1 and vote +1</a></li>
 
             <li data-role="list-divider">APIs for User</li>
-            <li><a onclick="getGripes({'u': 0})">Get a List of Gripes with u = 0 (user id)</a></li>
-            <li><a onclick="addGripe({'title':'some gripe title','content':'some gripe content'})">Add a single Gripe with test title & content</a></li>
-            <li><a onclick="getGripe(1)">Get a single Gripe with gripe id = 1</a></li>
-            <li><a onclick="updateGripe(1, {'status': 1, 'vote':1})">Update gripe #1 to status 1 and vote +1</a></li>
+            <li><a onclick="getUsers({'year': 2012})">Get a List of Users with graduation year = 2012</a></li>
+            <li><a onclick="getUser(1)">Get a single User profile with user id = 1</a></li>
+            <li><a onclick="updateUser(1, {'twitter': 'twitter.com/stan_ex'})">Update twitter address of user #1 to twitter.com/stan_ex</a></li>
 
             <li data-role="list-divider">APIs for Report</li>
-            <li><a onclick="getGripes({'u': 0})">Get a List of Gripes with u = 0 (user id)</a></li>
+            <li><a onclick="manageReport({'org_id': 0, 'user_id':0})">Manage report for org#0 and user#0</a></li>
 
             <!--            <input type="button" name="test" value="Simple add Gripe" onclick="addGripe()">
                         <input type="button" name="test" value="Simple add Gripe" onclick="addGripe()">
