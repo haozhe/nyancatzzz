@@ -12,13 +12,13 @@
             <li data-role="list-divider">APIs for Gripe</li>
 
             <li><a onclick="getGripes({'u': 0})">Get a List of Gripes with u = 0 (user id)</a></li>
-            <li><a onclick="addGripe({'title':'some gripe title','content':'some gripe content'})">Add a single Gripe with test title & content</a></li>
+            <li><a onclick="addGripe({'user_id':3, 'latitude':12.0009 , 'gripe_title':'some gripe','gripe_description':'some gripe'})">Add a single Gripe with test title & content</a></li>
             <li><a onclick="getGripe(1)">Get a single Gripe with gripe id = 1</a></li>
             <li><a onclick="updateGripe(1, {'status': 1, 'vote':1})">Update gripe #1 to status 1 and vote +1</a></li>
 
             <li data-role="list-divider">APIs for User</li>
             <li><a onclick="getUsers({'year': 2012})">Get a List of Users with graduation year = 2012</a></li>
-            <li><a onclick="getUser(1)">Get a single User profile with user id = 1</a></li>
+            <li><a onclick="getUser(3)">Get a single User profile with user id = 1</a></li>
             <li><a onclick="updateUser(1, {'twitter': 'twitter.com/stan_ex'})">Update twitter address of user #1 to twitter.com/stan_ex</a></li>
 
             <li data-role="list-divider">APIs for Report</li>
@@ -97,7 +97,7 @@
 
 </div>
 
-Introduction 
+<!-- Introduction  -->
 <div data-role="page" data-theme="b" id="page15">
     <div data-theme="b" data-role="header">
         <h3>
@@ -156,7 +156,7 @@ Introduction
 
 </div>
 
-Home 
+<!-- Home  -->
 <div data-role="page" data-theme="b" id="page11">
     <div data-theme="b" data-role="header">
         <h3>
@@ -245,7 +245,7 @@ Home
     </div>
 </div>
 
-Profile 
+<!-- Profile  -->
 <div data-role="page" data-theme="b" id="page16">
     <div data-theme="b" data-role="header">
         <a data-role="button" href="#page16" data-icon="gear" data-iconpos="notext"
@@ -312,7 +312,7 @@ Profile
         </div>
     </div>
 </div>
-Browse - Top 
+<!-- Browse - Top  -->
 <div data-role="page" data-theme="b" id="page10">
     <div data-theme="b" data-role="header">
         <a data-role="button" data-rel="back" href="#page10" data-icon="arrow-l"
@@ -404,7 +404,7 @@ Browse - Top
         </div>
     </div>
 </div>
-Browse - Search 
+<!-- Browse - Search  -->
 <div data-role="page" data-theme="b" id="page12">
     <div data-theme="b" data-role="header">
         <h3>
@@ -516,7 +516,7 @@ Browse - Search
         </div>
     </div>
 </div>
-Browse - Nearby 
+<!-- Browse - Nearby  -->
 <div data-role="page" data-theme="b" id="page17">
     <div data-theme="b" data-role="header">
         <a data-role="button" data-rel="back" href="#page17" data-icon="arrow-l"
@@ -572,7 +572,7 @@ Browse - Nearby
         </div>
     </div>
 </div>
-Notification 
+<!-- Notification  -->
 <div data-role="page" data-theme="b" id="page22">
     <div data-theme="b" data-role="header">
         <h3>
@@ -632,7 +632,7 @@ Notification
         </div>
     </div>
 </div>
-Add Gripe 
+<!-- Add Gripe  -->
 <div data-role="page" data-theme="b" id="page20">
     <div data-theme="b" data-role="header">
         <h3>
@@ -654,9 +654,9 @@ Add Gripe
         <form action="" method="POST" data-ajax="false">
             <div data-role="fieldcontain">
                 <fieldset data-role="controlgroup">
-                    <label for="textarea6">
+                    <label for="gripetitle">
                     </label>
-                    <textarea name="" id="textarea6" placeholder="Add a Gripe Title  (140 characters)"></textarea>
+                    <textarea name="" id="gripetitle" placeholder="Add a Gripe Title  (140 characters)"></textarea>
                 </fieldset>
             </div>
         </form>
@@ -675,17 +675,17 @@ Add Gripe
         <div data-role="fieldcontain">
             <label for="selectmenu3">
             </label>
-            <select name="" data-theme="d">
-                <option value="">
+            <select name="serious_select" data-theme="d">
+                <option value="0">
                     Serious
                 </option>
-                <option value="">
+                <option value="1">
                     Non-Serious
                 </option>
             </select>
         </div>
         <div data-role="collapsible-set" data-theme="c" data-content-theme="c">
-            <div data-role="collapsible" data-collapsed="false">
+            <div data-role="collapsible" data-collapsed="true">
                 <h3>
                     Options
                 </h3>
@@ -749,7 +749,7 @@ Add Gripe
                 </div>
             </div>
         </div>
-        <a data-role="button" data-transition="pop" href="#page11" data-icon="check"
+        <a data-role="button" id="submit_gripe" data-transition="pop" href="#page11" data-icon="check"
            data-iconpos="left">
             Submit
         </a>
@@ -777,7 +777,7 @@ Add Gripe
     </div>
 </div>
 
-Single Non-Serious Gripe 
+<!-- Single Non-Serious Gripe  -->
 <div data-role="page" data-theme="b" id="page19">
     <div data-theme="b" data-role="header">
         <h3>
@@ -845,7 +845,7 @@ Single Non-Serious Gripe
     </div>
 </div>
 
-Single Serious Gripe 
+<!-- Single Serious Gripe  -->
 <div data-role="page" data-theme="b" id="page14">
     <div data-theme="b" data-role="header">
         <h3>

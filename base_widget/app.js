@@ -72,9 +72,8 @@ function getGripes(query){
 }
 
 function getGripe(gripe_id){
-    gripe_id = 1;
     $.ajax({
-        url: "api/gripe/" + gripe_id,
+        url: "api/gripe/"+ gripe_id,
         context: document.body,
         success: function (data){
             alert(data);
@@ -84,7 +83,11 @@ function getGripe(gripe_id){
     
 }
 
-function addGripe(input){
+function addGripe(gripe_title, anonymous, serious){
+    if(!gripe_title){
+        alert("You must add a Gripe title to post");
+        return false;
+    }
     $.ajax({
         url: "api/gripe",
         context: document.body,
@@ -108,6 +111,7 @@ function updateGripe(gripe_id, input){
         success: function (data) {
             alert(data);    
         }
+
     });
     
 }
@@ -169,7 +173,24 @@ function manageReport(query){
     });
     
 }
+$(document).ready(function() {
+    var gripetitle;
+    $("#gripetitle").change(function(){ 
+        gripetitle  = $(this).val();
+        alert(gripetitle);
 
+    });
+
+    $('#submit_gripe').click(function() {
+      alert('Handler for .submit() called.');
+
+      addGripe(gripetitle, serious_select);
+
+      return false;
+    });
+        // addGripe(gripetitle,);
+ 
+});
 
 //Stan to Blacki: you should implement js function calls to call all apis below, they are just like the functions above
 //necessary data is in the api doc
