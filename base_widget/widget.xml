@@ -2,8 +2,11 @@
 <widget title="Sample Widget">
     <library name="jquery"/>
     <library name="gtmob"/>
+    <css name="gripe.css"/>
     <html file="app.html"/>
+    <javascript file="http://maps.googleapis.com/maps/api/js?key=AIzaSyDtBKCq7u-zIeSPFewvAtM-BgAFZ83CJ7Y&#38;sensor=true"/>
+    <javascript file="function.js"/>
     <javascript file="app.js"/>
     <library name="jquery.mobile"/> 
-    <css name="gripe.css"/>
+    
 </widget>

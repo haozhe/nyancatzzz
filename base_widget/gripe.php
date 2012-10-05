@@ -49,7 +49,7 @@ function updateGripe($gripe_id, $status, $voting_up, $voting_down) {
 }
 
 //high priority
-function getGripes() {
+function getGripes($get) {
     /* this function should be able to take the folowing search parameters 
       User_param
       Rank_param
@@ -58,12 +58,13 @@ function getGripes() {
       keyword_param  //open-ended search
      */
     /* Return vaild JSON object */
+    getGripesByUser($get['u']);
 }
 
 //high priority
 function getGripe($id) {
     /* Return vaild JSON object */
-    $dbQuery = sprintf("SELECT * FROM `gripe` WHERE `gripe_id` = '%s'",
+    $dbQuery = sprintf("SELECT * FROM gripe INNER JOIN user WHERE gripe.user_id = user.user_id AND gripe.gripe_id ='%s'",
             mysql_real_escape_string($id));
     $result=getDBResultRecord($dbQuery);
     header("Content-type: application/json");
@@ -73,7 +74,7 @@ function getGripe($id) {
 
 function getGripesByUser($user_id) {
     /* Return vaild JSON object */
-    $dbQuery = sprintf("SELECT * FROM `gripe` WHERE `user_id` = '%s'",
+    $dbQuery = sprintf("SELECT * FROM `gripe` WHERE `user_id` = '%s' ORDER BY gripe_id DESC",
             mysql_real_escape_string($user_id));
     $result=getDBResultsArray($dbQuery);
     header("Content-type: application/json");
