@@ -89,6 +89,12 @@
             <action file='gripe.php'><![CDATA[addGripe($_POST);]]>
             </action>
         </post>
+        <post>
+            <description><![CDATA[This is how you can create a gripe]]>
+            </description>
+            <action file='gripe.php'><![CDATA[checkUser($_POST);]]>
+            </action>
+        </post>        
     </command> 
     
 </api>

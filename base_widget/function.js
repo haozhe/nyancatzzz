@@ -71,28 +71,38 @@ function getGripes(query, gripe_list_holder, gripe_list_title){
         type:"GET",
         data:query,
         success: function (data){
-            alert(data);
+            console.log(data);
             
-            //Append gripe list title
-            var title = '<li data-role="list-divider">' + gripe_list_title + '</li>';
-            $(gripe_list_holder).append(title);
-            //            console.log(title);
+            $(gripe_list_holder).html("");
             
-            var gripes = jQuery.parseJSON(data);
+            if(data !== "null"){
+                //Append gripe list title
+                
+                var title = '<li data-role="list-divider">' + gripe_list_title + '</li>';
+                $(gripe_list_holder).append(title);
+                //            console.log(title);
+            
+                var gripes = jQuery.parseJSON(data);
 
-            $.each(gripes, function (i, gripe){
-                //                console.log(status[gripe.status]);
-                var li = '<li data-theme="c">';
-                li += '<a data-transition="slide" onclick="getGripe('+gripe.gripe_id+')">';
-                li += gripe.gripe_title;
-                li += '<span class="ui-li-count">';
-                li += status[gripe.status];
-                li += '</span>';
-                li += '</a>';
-                li += '</li>';
-                $(gripe_list_holder).append(li);
+                $.each(gripes, function (i, gripe){
+                    //                console.log(status[gripe.status]);
+                    var li = '<li data-theme="c">';
+                    li += '<a data-transition="slide" onclick="getGripe('+gripe.gripe_id+')">';
+                    li += gripe.gripe_title;
+                    li += '<span class="ui-li-count">';
+                    li += status[gripe.status];
+                    li += '</span>';
+                    li += '</a>';
+                    li += '</li>';
+                    $(gripe_list_holder).append(li);
 
-            });
+                });
+            } else {
+                console.log("No gripe found");
+                $(gripe_list_holder).append('<li data-role="list-divider">No Gripe Found</li>');
+
+            }
+            
             $(gripe_list_holder).listview("refresh");
 
         }
@@ -179,7 +189,17 @@ function getUser(user_id){
     });
     
 }
-
+function checkUser(CAS_username){
+    $.ajax({
+        url: "api/user/" + cas_id,
+        context: document.body,
+        success: function (data){
+            console.log(data);
+        }
+            
+    });
+    
+}
 function updateUser(user_id, input){
     console.log(input);
     $.ajax({
@@ -209,5 +229,6 @@ function manageReport(query){
     });
     
 }
+
 
 
