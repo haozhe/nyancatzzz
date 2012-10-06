@@ -49,7 +49,7 @@ function updateGripe($gripe_id, $status, $voting_up, $voting_down) {
 }
 
 //high priority
-function getGripes() {
+function getGripes($get) {
     /* this function should be able to take the folowing search parameters 
       User_param
       Rank_param
@@ -58,12 +58,22 @@ function getGripes() {
       keyword_param  //open-ended search
      */
     /* Return vaild JSON object */
+    switch ($get['key']) {
+        case 'user_id':
+            getGripesByUser($get['value']);
+            break;
+        case 'keyword':
+            getGripesByKeyword($get['value']);
+            break;
+        default:
+            break;
+    }   
 }
 
 //high priority
 function getGripe($id) {
     /* Return vaild JSON object */
-    $dbQuery = sprintf("SELECT * FROM `gripe` WHERE `gripe_id` = '%s'",
+    $dbQuery = sprintf("SELECT * FROM gripe INNER JOIN user WHERE gripe.user_id = user.user_id AND gripe.gripe_id ='%s'",
             mysql_real_escape_string($id));
     $result=getDBResultRecord($dbQuery);
     header("Content-type: application/json");
@@ -73,7 +83,7 @@ function getGripe($id) {
 
 function getGripesByUser($user_id) {
     /* Return vaild JSON object */
-    $dbQuery = sprintf("SELECT * FROM `gripe` WHERE `user_id` = '%s'",
+    $dbQuery = sprintf("SELECT * FROM `gripe` WHERE `user_id` = '%s' ORDER BY gripe_id DESC",
             mysql_real_escape_string($user_id));
     $result=getDBResultsArray($dbQuery);
     header("Content-type: application/json");
@@ -88,17 +98,15 @@ function getGripesByRank($rank) {
     $result=getDBResultsArray($dbQuery);
     header("Content-type: application/json");
     echo json_encode($result);
-    //need way to order and take the top $rank
 }
 
 function getGripesByRecent($recent) {
     /* Return vaild JSON object */
-    $dbQuery = sprintf("select * from `gripe` where `createdtime` >= Dateadd(day,-1-'%s',getdate())",
+    $dbQuery = sprintf("select * from `gripe` where `createdtime` >= Dateadd(day,-1-'%s',getdate()) ORDER BY createdtime DESC",
             mysql_real_escape_string($recent));
     $result=getDBResultsArray($dbQuery);
     header("Content-type: application/json");
     echo json_encode($result);
-    //did not test
 }
 
 function getGripesByLocation($building_id) {
@@ -108,16 +116,14 @@ function getGripesByLocation($building_id) {
     $result=  getDBResultsArray($dbQuery);
     header("Content-type: application/json");
     echo json_encode($result);
-    //did not test
 }
 
 function getGripesByKeyword($keyword) {
     /* Return vaild JSON object */
-    $dbQuery = sprintf("SELECT * FROM `gripe` WHERE ",
+    $dbQuery = sprintf("SELECT * FROM `gripe` WHERE `gripe_title` LIKE '%test%' OR `gripe_description` LIKE '%test%'",
             mysql_real_escape_string($keyword));
     $result=  getDBResultsArray($dbQuery);
     header("Content-type: application/json");
     echo json_encode($result);
-    //how to search
 }
 ?>

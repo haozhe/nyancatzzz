@@ -8,5 +8,8 @@
 
 root { 
     display: block;
+
 }
+
+.containing-element .ui-slider-switch { width: 9em }
 

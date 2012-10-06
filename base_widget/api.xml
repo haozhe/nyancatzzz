@@ -68,7 +68,7 @@
         <post>
             <description><![CDATA[This is how you can create a simple item]]>
             </description>
-            <action file='simple.php'><![CDATA[addItem($_POST['itemValue']);]]>
+            <action file='gripe.php'><![CDATA[addItem($_POST['itemValue']);]]>
             </action>
         </post>
         <put>

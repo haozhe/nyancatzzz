@@ -1,198 +1,192 @@
-function simpleIndex(){
-    $.ajax({
-        url: "api/simple",
-        context: document.body,
-        success: function(data){
-            $('#IndexResult').html(data);
-        }
-    });
-}
-function simpleGet(){
-    $.ajax({
-        url: "api/simple/testItemValue",
-        context: document.body,
-        success: function(data){
-            $('#GetResult').html(data);
-        }
-    });
-}
-function simplePost(){
-    $.ajax({
-        url: "api/simple",
-        data: {
-            'itemValue': 'testItemValue'
-        },
-        context: document.body,
-        type: 'POST',
-        success: function(data){
-            $('#PostResult').html(data);
-        }
-    });
-}
-function simplePut(){
-    $.ajax({
-        url: "api/simple/testItemValue",
-        context: document.body,
-        data: {
-            'itemValue': 'testItemNewValue'
-        },
-        headers: {
-            'X-HTTP-Method-Override': 'PUT'
-        },
-        type: 'POST',
-        success: function(data){
-            $('#PutResult').html(data);
-        }
-    });
-}
-function simpleDelete(){
-    $.ajax({
-        url: "api/simple/testItem",
-        context: document.body,
-        type: 'DELETE',
-        success: function(data){
-            $('#DeleteResult').html(data);
-        }
-    });
-}
+//Define global variable storing the user_id for logged in user
+var user_id = 3;
+//Object to be passed into php functions
+var data_obj = {};
 
-//APIs for Gripe
-function getGripes(query){
-    $.ajax({
-        url: "api/gripe",
-        context: document.body,
-        type:"GET",
-        data:query,
-        success: function (data){
-            alert(data);    
-        }
-            
-    });
-    
-}
 
-function getGripe(gripe_id){
-    $.ajax({
-        url: "api/gripe/"+ gripe_id,
-        context: document.body,
-        success: function (data){
-            alert(data);
-        }
-            
-    });
-    
-}
+$(document).ready(function() {
 
-function addGripe(gripe_title, anonymous, serious){
-    if(!gripe_title){
-        alert("You must add a Gripe title to post");
-        return false;
-    }
-    $.ajax({
-        url: "api/gripe",
-        context: document.body,
-        type:"POST",
-        data: input,
-        success: function (data){
-            alert(data);    
-        }
-            
-    });
-    
-}
+    //After #home-mine-page is created, execute the following to get a list of gripes 
+    $("#home-page").bind("pagebeforecreate", function (event){
+        $("#home_button").hide();
 
-function updateGripe(gripe_id, input){
-    console.log(input);
-    $.ajax({
-        url:"api/gripe/" + gripe_id,
-        context:document.body,
-        type:"PUT",
-        data:input,
-        success: function (data) {
-            alert(data);    
-        }
-
-    });
-    
-}
-
-//APIs for User
-
-function getUsers(query){
-    $.ajax({
-        url: "api/user",
-        context: document.body,
-        type:"GET",
-        data:query,
-        success: function (data){
-            alert(data);    
-        }
-            
-    });
-    
-}
-
-function getUser(user_id){
-    $.ajax({
-        url: "api/user/" + user_id,
-        context: document.body,
-        success: function (data){
-            alert(data);
-        }
-            
-    });
-    
-}
-
-function updateUser(user_id, input){
-    console.log(input);
-    $.ajax({
-        url:"api/user/" + user_id,
-        context:document.body,
-        type:"PUT",
-        data:input,
-        success: function (data) {
-            alert(data);    
-        }
-    });
-    
-}
-
-//APIs for report
-function manageReport(query){
-    $.ajax({
-        url:"api/report",
-        context:document.body,
-        type:"GET",
-        data:query,
-        success:function (data){
-            alert(data)
-            
-        }
+        bindFooter();
+        bindBrosweNavbar();
+        
+        $("#mine-tab").trigger("click");
+        
+        $("#browse-nearby-tab").trigger("click");  
         
     });
+
     
-}
-$(document).ready(function() {
-    var gripetitle;
+    //For Browse-Nearby Page
+    initializeMap();
+    function initializeMap() {
+        var mapOptions = {
+            center: new google.maps.LatLng(33.7767873, -84.38872529999999),
+            zoom: 8,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        var map = new google.maps.Map(document.getElementById("google-map"),
+            mapOptions);
+    }
+
+    //For Browse-Search Page
+    $("#browse-search-submit").click(function (){
+        var keyword = $("#browse-search-keyword").val();
+        getGripes({'key':'keyword', 'value': keyword}, "#search-gripe-list", "Search Results")
+        
+    });
+
+    //For Add New Gripe Page
     $("#gripetitle").change(function(){ 
-        gripetitle  = $(this).val();
-        alert(gripetitle);
+        data_obj.gripe_title = $(this).val();
+    });
+
+    $("#gripedetail").change(function(){ 
+        data_obj.gripe_description = $(this).val();
+    });
+
+    $('#upload_img').click(function() {
+
+        $( "#popupLoadImg" ).dialog({ 
+            'modal': true, 
+            'width': 530, 
+            'title': result.summary, 
+            'resizable': false, 
+            'draggable': false 
+        });
 
     });
 
+  
+    $( "#geo_toggle" ).bind( "change", function(event, ui) {
+        if($('select[name="geo_toggle"]').val()=="on"){
+            //call geolocation stuff
+            getLocation();    
+        }; 
+    });
+
+    
     $('#submit_gripe').click(function() {
-      alert('Handler for .submit() called.');
+        data_obj.user_id = user_id;
+        data_obj.anon = $('select[name="anon_select"]').val();      
+        data_obj.serious = $('select[name="serious_select"]').val();
+        data_obj.category_id = $('select[name="cat_select"]').val();
+        if($('select[name="geo_toggle"]').val()=="on"){
+            console.log(data_obj.latitude+" "+data_obj.longitude);
 
-      addGripe(gripetitle, serious_select);
+        }; 
 
-      return false;
+        if(data_obj.category_id=="New"){
+            alert("Implement create a new category");
+        }
+
+        if(data_obj.gripe_title==undefined){
+            alert("You must specify a Gripe");
+        }else{
+            addGripe(data_obj);
+            var li = '<li data-theme="c">';
+            li += '<a href="#single-gripe-page" data-transition="slide">';
+            li += data_obj.gripe_title;
+            li += '<span class="ui-li-count">';
+            li += 'unsolved';
+            li += '</span>';
+            li += '</a>';
+            li += '</li>';
+            $('#my-gripe-list li:first-child').after(li);
+            $('#my-gripe-list').listview("refresh");
+            $.mobile.changePage('#home-page')
+        }
+ 
+        return false;
     });
-        // addGripe(gripetitle,);
  
 });
 
-//Stan to Blacki: you should implement js function calls to call all apis below, they are just like the functions above
-//necessary data is in the api doc
-//remember to change type according to the input type in the api doc
-//url is also in the api doc
+
+function getLocation()
+{
+    if (navigator.geolocation)
+    {
+        navigator.geolocation.getCurrentPosition(setPosition);
+    }
+    else{
+        alert("Geolocation is not supported by this browser.");
+    }
+}
+
+function setPosition(position)
+{
+    data_obj.latitude = position.coords.latitude;
+    data_obj.longitude = position.coords.longitude;
+   
+}
+    
+
+
+function getMineContent(){
+    
+}
+
+function bindFooter(){
+    
+    $("#mine-tab").click(function () {
+        $("#mine-content").show();
+        $("#browse-content").hide();
+        $("#profile-content").hide();
+        
+        $("#browse-navbar").hide();
+        
+        getGripes({
+            'key':'user_id',
+            'value':user_id
+        },"#my-gripe-list", "My Gripes");
+        
+        
+    });
+
+    
+    $("#browse-tab").click(function () {
+        $("#mine-content").hide();
+        $("#browse-content").show();
+        $("#profile-content").hide();
+        
+        $("#browse-navbar").show();
+    });
+    
+    $("#profile-tab").click(function () {
+        $("#mine-content").hide();
+        $("#browse-content").hide();
+        $("#profile-content").show();
+        
+        $("#browse-navbar").hide();
+    });    
+    
+
+}
+
+function bindBrosweNavbar(){
+    $("#browse-nearby-tab").click(function(){
+        $("#browse-nearby-content").show();
+        $("#browse-top-content").hide();
+        $("#browse-search-content").hide();
+    });
+
+    $("#browse-top-tab").click(function(){
+        $("#browse-nearby-content").hide();
+        $("#browse-top-content").show();
+        $("#browse-search-content").hide();
+    });
+    
+    $("#browse-search-tab").click(function(){
+        $("#browse-nearby-content").hide();
+        $("#browse-top-content").hide();
+        $("#browse-search-content").show();
+    });
+    
+
+}
+   
+    
