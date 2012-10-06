@@ -71,7 +71,7 @@ function getGripes(query, gripe_list_holder, gripe_list_title){
         type:"GET",
         data:query,
         success: function (data){
-            console.log(data);
+            alert(data);
             
             //Append gripe list title
             var title = '<li data-role="list-divider">' + gripe_list_title + '</li>';

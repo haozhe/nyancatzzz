@@ -36,7 +36,7 @@ $(document).ready(function() {
     $("#browse-search-submit").click(function (){
         var keyword = $("#browse-search-keyword").val();
         getGripes({'key':'keyword', 'value': keyword}, "#search-gripe-list", "Search Results")
-        
+        $.mobile.changePage("#search-result-page");
     });
 
     //For Add New Gripe Page

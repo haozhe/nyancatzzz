@@ -65,6 +65,12 @@ function getGripes($get) {
         case 'keyword':
             getGripesByKeyword($get['value']);
             break;
+        case 'top':
+            getGripesByRank();
+            break;
+        case 'location':
+            getGripesByDistance($get['lat'],$get['lon'],$get['dist']);
+            break;
         default:
             break;
     }   
@@ -91,10 +97,9 @@ function getGripesByUser($user_id) {
     //did not test
 }
 
-function getGripesByRank($rank) {
+function getGripesByRank() {
     /* Return vaild JSON object */
-    $dbQuery = sprintf("SELECT * FROM `gripe` WHERE order by `voting_up`",
-            mysql_real_escape_string($rank));
+    $dbQuery = sprintf("SELECT * FROM `gripe` ORDER BY `voting_up` DESC LIMIT 0,10" );
     $result=getDBResultsArray($dbQuery);
     header("Content-type: application/json");
     echo json_encode($result);
@@ -102,7 +107,7 @@ function getGripesByRank($rank) {
 
 function getGripesByRecent($recent) {
     /* Return vaild JSON object */
-    $dbQuery = sprintf("select * from `gripe` where `createdtime` >= Dateadd(day,-1-'%s',getdate()) ORDER BY createdtime DESC",
+    $dbQuery = sprintf("select * from `gripe` where `created_time` >= Dateadd(day,-1-'%s',getdate()) ORDER BY gripe_id DESC",
             mysql_real_escape_string($recent));
     $result=getDBResultsArray($dbQuery);
     header("Content-type: application/json");
@@ -118,10 +123,22 @@ function getGripesByLocation($building_id) {
     echo json_encode($result);
 }
 
+function getGripesByDistance($lat, $lon, $dist) {
+    /* Return vaild JSON object */
+    $dbQuery = sprintf("SELECT *, ((ACOS(SIN($lat * PI() / 180)
+        * SIN(latitude * PI() / 180) + COS($lat * PI() / 180) 
+            * COS(latitude * PI() / 180) * COS(($lon-longitude) 
+                * PI() / 180)) * 180 / PI()) * 60 * 1.1515) 
+                AS `distance` FROM `gripe` HAVING `distance`<=$dist ORDER BY `distance` ASC");
+    $result=  getDBResultsArray($dbQuery);
+    header("Content-type: application/json");
+    echo json_encode($result);
+}
+
 function getGripesByKeyword($keyword) {
     /* Return vaild JSON object */
-    $dbQuery = sprintf("SELECT * FROM `gripe` WHERE `gripe_title` LIKE '%test%' OR `gripe_description` LIKE '%test%'",
-            mysql_real_escape_string($keyword));
+    $dbQuery = sprintf("SELECT * FROM `gripe` WHERE `gripe_title` REGEXP '[[:<:]]" . $keyword . "[[:>:]]' OR `gripe_description` REGEXP '[[:<:]]" . $keyword . "[[:>:]]'");
+ //           mysql_real_escape_string($keyword));
     $result=  getDBResultsArray($dbQuery);
     header("Content-type: application/json");
     echo json_encode($result);
