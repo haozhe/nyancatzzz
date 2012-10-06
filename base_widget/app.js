@@ -6,6 +6,11 @@ var data_obj = {};
 
 $(document).ready(function() {
 
+    $('#username').change(function() {
+        checkUser($(this).val());     
+        // console.log($('username').value);
+    });
+
     //After #home-mine-page is created, execute the following to get a list of gripes 
     $("#home-page").bind("pagebeforecreate", function (event){
         $("#home_button").hide();

@@ -191,7 +191,7 @@ function getUser(user_id){
 }
 function checkUser(CAS_username){
     $.ajax({
-        url: "api/user/" + cas_id,
+        url: "api/user/" + CAS_username,
         context: document.body,
         success: function (data){
             console.log(data);
