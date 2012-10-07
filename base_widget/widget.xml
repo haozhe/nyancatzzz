@@ -9,5 +9,4 @@
     <javascript file="app.js"/>
     <library name="jquery.mobile"/> 
     <javascript file="http://jquery-ui-map.googlecode.com/svn/trunk/ui/min/jquery.ui.map.full.min.js"/>
-    
 </widget>

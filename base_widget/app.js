@@ -7,9 +7,11 @@ var data_obj = {};
 $(document).ready(function() {
 
     $('#username').change(function() {
-        checkUser($(this).val());     
-        // console.log($('username').value);
+        data_obj.CAS_username = $(this).val();
+        checkUser(data_obj);     
+    // console.log($('username').value);
     });
+
 
     //After #home-mine-page is created, execute the following to get a list of gripes 
     $("#home-page").bind("pagebeforecreate", function (event){
@@ -19,28 +21,39 @@ $(document).ready(function() {
         bindBrosweNavbar();
         
         $("#mine-tab").trigger("click");
-        
-        $("#browse-nearby-tab").trigger("click");  
-        
+
     });
 
-    
-    //For Browse-Nearby Page
-    initializeMap();
-    function initializeMap() {
-        var mapOptions = {
-            center: new google.maps.LatLng(33.7767873, -84.38872529999999),
-            zoom: 8,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
-        var map = new google.maps.Map(document.getElementById("google-map"),
-            mapOptions);
-    }
+    //Bind page hide event for single-gripe-page with function deleting the #map_canvas
+    $('#single-gripe-page').live('pagehide', function (){
+        $("#map_canvas").remove();
+
+    });
+
+    $("#browse-nearby-tab").click(function(){
+        $("#browse-nearby-content").show();
+        $("#browse-top-content").hide();
+        $("#browse-search-content").hide();
+
+
+        // alert($("#browse-content").height());
+        // $("google-map").css("height", $("#browse-nearby-content").height());
+        initMultMap({
+            'key': 'location', 
+            'lat':'33.77', 
+            'lon':'-84.3', 
+            'dist':'10'
+        });
+        
+    });
 
     //For Browse-Search Page
     $("#browse-search-submit").click(function (){
         var keyword = $("#browse-search-keyword").val();
-        getGripes({'key':'keyword', 'value': keyword}, "#search-gripe-list", "Search Results")
+        getGripes({
+            'key':'keyword', 
+            'value': keyword
+        }, "#search-gripe-list", "Search Results")
         $.mobile.changePage("#search-result-page");
     });
 
@@ -159,6 +172,9 @@ function bindFooter(){
         $("#profile-content").hide();
         
         $("#browse-navbar").show();
+        
+                
+        $("#browse-nearby-tab").trigger("click");
     });
     
     $("#profile-tab").click(function () {
@@ -173,16 +189,26 @@ function bindFooter(){
 }
 
 function bindBrosweNavbar(){
+    $("#browse-nearby-content").show();
+    $("#browse-top-content").hide();
+    $("#browse-search-content").hide();
+    
     $("#browse-nearby-tab").click(function(){
         $("#browse-nearby-content").show();
         $("#browse-top-content").hide();
         $("#browse-search-content").hide();
+        getLocation();
     });
 
     $("#browse-top-tab").click(function(){
         $("#browse-nearby-content").hide();
         $("#browse-top-content").show();
         $("#browse-search-content").hide();
+        
+        getGripes({
+            'key':'top'
+        }, '#top-gripe-list', 'Top Gripes');
+
     });
     
     $("#browse-search-tab").click(function(){

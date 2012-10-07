@@ -129,7 +129,7 @@ function getGripesByDistance($lat, $lon, $dist) {
         * SIN(latitude * PI() / 180) + COS($lat * PI() / 180) 
             * COS(latitude * PI() / 180) * COS(($lon-longitude) 
                 * PI() / 180)) * 180 / PI()) * 60 * 1.1515) 
-                AS `distance` FROM `gripe` HAVING `distance`<=$dist ORDER BY `distance` ASC");
+                AS `distance` FROM `gripe` INNER JOIN user HAVING `distance`<=$dist AND gripe.user_id = user.user_id ORDER BY `distance` ASC");
     $result=  getDBResultsArray($dbQuery);
     header("Content-type: application/json");
     echo json_encode($result);

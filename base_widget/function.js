@@ -112,6 +112,9 @@ function getGripes(query, gripe_list_holder, gripe_list_title){
 }
 
 function getGripe(gripe_id){
+    
+    var mapCanvas = '<div id="map_canvas" style="height:200px;"> </div>';
+    $(mapCanvas).appendTo('#single-gripe-page div:last-child').css('opacity', 0).delay(600).animate({'opacity':'1'}, 'slow');
 
     $.ajax({
         url: "api/gripe/"+ gripe_id,
@@ -121,16 +124,100 @@ function getGripe(gripe_id){
 
             var gripe = $.parseJSON(data);
             
-            $("#single-gripe-title").html(gripe.gripe_title);
-            $("#single-gripe-description").html(gripe.gripe_description);
-            $("#single-gripe-user-name").html(gripe.Facebook_username);
-            $("#single-gripe-user-img").attr('src',gripe.img_url);
+            setGripePage("#single-gripe", gripe);
+
             $.mobile.changePage("#single-gripe-page");
-            
+
+            loadMap(new google.maps.LatLng(gripe.latitude,gripe.longitude));    
+
+
+            $("#single-gripe-page").live("pageshow", function (){
+        
+                $("#map_canvas").gmap('refresh');
+
+            });
         }
             
     });
     
+}
+
+
+function loadMap(location) {
+    $('#map_canvas').gmap({
+        'center': location, 
+        'zoom': 14, 
+        'disableDefaultUI':true,
+        'noClear':false,
+        'callback': function() {
+            var self = this;
+            self.addMarker({
+                'position': this.get('map').getCenter()
+            });
+            self.refresh();
+        }
+    }); 
+
+}
+
+function initMultMap(query) {
+    $.ajax({
+        url: "api/gripe",
+        context: document.body,
+        type:"GET",
+        data:query,
+        success: function (data){
+            console.log(data);
+                        
+            if(data !== "null"){
+                //Append gripe list title            
+                var gripes = jQuery.parseJSON(data);
+                loadMultipleMap(gripes);
+                
+            } else {
+                console.log("No gripes found");
+
+            }
+            
+        }
+            
+    });
+}
+
+function loadMultipleMap(local) {
+    $('#google-map').remove();
+    var googleMap = '<div id ="google-map" style="width:99%; height:300px "></div>';
+    $(googleMap).appendTo('#browse-nearby-content').css('opacity', 0).delay(300).animate({'opacity':'1'}, 'slow');
+
+
+    // alert(local);
+    $('#google-map').gmap({
+        'center': '33.776579,-84.395355', 
+        'zoom': 14, 
+        'disableDefaultUI':true, 
+        'callback': function() {
+            var self = this;
+            $.each(local, function(i,gripe){
+                
+                self.addMarker({
+                    'position':  new google.maps.LatLng(gripe.latitude,gripe.longitude),
+                    'bounds': true 
+                }).click(function() {
+                    $.mobile.changePage('#single-gripe-popup',{
+                        role:'dialog'
+                    });
+                                
+                    setGripePage('#single-gripe-popup', gripe);
+                    
+
+                });
+            });
+        }
+    }); 
+    
+    $('#home-page').live('pageshow', function() {
+        $('#google-map').gmap('refresh');
+    });
 }
 
 function addGripe(data_obj){      
@@ -146,6 +233,7 @@ function addGripe(data_obj){
     });
     
 }
+
 
 function updateGripe(gripe_id, input){
     console.log(input);
@@ -189,12 +277,14 @@ function getUser(user_id){
     });
     
 }
-function checkUser(CAS_username){
+function checkUser(data_obj){
     $.ajax({
-        url: "api/user/" + CAS_username,
+        url: "api/user/",
         context: document.body,
+        type:"POST",
+        data:data_obj,        
         success: function (data){
-            console.log(data);
+            console.log("Hello"+data);
         }
             
     });
@@ -230,5 +320,17 @@ function manageReport(query){
     
 }
 
+function setGripePage(page,gripe){
+    $(page + "-description").hide();
+    
+    $(page + "-title").html(gripe.gripe_title);
+    if(gripe.gripe_description != "")$(page + "-description").html(gripe.gripe_description).show();
+    $(page + "-user-name").html(gripe.username);
+    $(page + "-user-img").attr('src',gripe.img_url);
+    
+}
 
-
+function getTopGripes(){
+    
+    
+}

@@ -13,6 +13,29 @@
  }
 
  //high priority
+ function checkUser($post) {
+    //echo $post[CAS_username];
+   /*First time login with cas creates a gripe profile in db*/
+    $dbQuery = sprintf("SELECT * FROM user WHERE CAS_username = '$post[CAS_username]'");
+    echo $dbQuery;
+    $result=mysql_query($dbQuery);
+    echo $result;
+    header("Content-type: application/json");
+    echo json_encode($result);
+ //   if(!$dbQuery){
+  //      $dbQuery2 = sprintf("INSERT INTO `user` '%s'",
+  //     mysql_real_escape_string($post[CAS_username]));
+  //      $dbQuery2 = sprintf("SELECT `user_id` FROM `user` WHERE `CAS_username` = '%s'",
+  //          mysql_real_escape_string($post[CAS_username]));
+  //      $result=getDBResultRecord($dbQuery2);
+  //  }
+  //  else{
+        
+  //  }
+    
+    
+ }
+ //high priority
  function editUser($POST) {
    /*
      be able to accept the following params
@@ -52,7 +75,7 @@
  function getUser($user_id) {
    /**/    
      $dbQuery = sprintf("SELECT * FROM `user` WHERE `user_id` = '%s'",
-            mysql_real_escape_string($id));
+            mysql_real_escape_string($user_id));
     $result=getDBResultRecord($dbQuery);
     header("Content-type: application/json");
     echo json_encode($result);

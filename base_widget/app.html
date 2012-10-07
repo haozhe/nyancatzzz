@@ -62,14 +62,14 @@
             <fieldset data-role="controlgroup">
                 <label for="textinput2">
                 </label>
-                <input name="" id="textinput2" placeholder="Username" value="" type="text">
+                <input name="" id="username" placeholder="Username" value="" type="text">
             </fieldset>
         </div>
         <div data-role="fieldcontain">
             <fieldset data-role="controlgroup">
                 <label for="textinput3">
                 </label>
-                <input name="" id="textinput3" placeholder="Password" value="" type="text">
+                <input name="" id="password" placeholder="Password" value="" type="password">
             </fieldset>
         </div>
         <a data-role="button" href="#home-page">
@@ -147,10 +147,10 @@
         <h3>
             Gripe
         </h3>
-        <a data-role="button" href="#notification-page" data-icon="info" data-iconpos="left"
+<!--        <a data-role="button" href="#notification-page" data-icon="info" data-iconpos="left"
            class="ui-btn-left">
             Messages
-        </a>
+        </a>-->
         <a data-role="button" href="#add-gripe-page" data-icon="plus" data-iconpos="left"
            class="ui-btn-right">
             New
@@ -158,7 +158,7 @@
         <div id="browse-navbar" data-role="navbar" data-iconpos="no">
             <ul>
                 <li>
-                    <a id="browse-nearby-tab" data-theme="" data-icon="" class="ui-btn-active ui-state-persist">
+                    <a id="browse-nearby-tab" data-theme="" data-icon="" class="ui-btn-active">
                         Nearby
                     </a>
                 </li>
@@ -184,47 +184,15 @@
         <div id="browse-content">
 
             <div id="browse-nearby-content">
-                <div id ="google-map" style="width:99%; height:200px;"></div>
+                
             </div>
 
             <div id="browse-top-content">
-                <ul data-role="listview" data-divider-theme="b" data-inset="false">
+                <ul id="top-gripe-list" data-role="listview" data-divider-theme="b" data-inset="false">
                     <li data-role="list-divider">
                         Top Gripe of the Month
                     </li>
-                    <li data-theme="c">
-                        <a href="#single-gripe-page" data-transition="slide">
-                            Gripe 1
-                        </a>
-                    </li>
-                    <li data-theme="c">
-                        <a href="#single-gripe-page" data-transition="slide">
-                            Gripe 2
-                        </a>
-                    </li>
-                    <li data-theme="c">
-                        <a href="#single-gripe-page" data-transition="slide">
-                            Gripe 3
-                        </a>
-                    </li>
-                    <li data-role="list-divider">
-                        Trending Gripe
-                    </li>
-                    <li data-theme="c">
-                        <a href="#single-gripe-page" data-transition="slide">
-                            Gripe 4
-                        </a>
-                    </li>
-                    <li data-theme="c">
-                        <a href="#single-gripe-page" data-transition="slide">
-                            Gripe 5
-                        </a>
-                    </li>
-                    <li data-theme="c">
-                        <a href="#single-gripe-page" data-transition="slide">
-                            Gripe 6
-                        </a>
-                    </li>
+
                 </ul>
             </div>
 
@@ -351,47 +319,6 @@
     </div>
 </div>
 
-<!-- Home  -->
-<!-- <div data-role="page" data-theme="b" id="home-page">
-    <div data-theme="b" data-role="header">
-        <h3>
-            Gripe
-        </h3>
-        <a data-role="button" href="#notification-page" data-icon="info" data-iconpos="left"
-           class="ui-btn-left">
-            Messages
-        </a>
-        <a data-role="button" href="#add-gripe-page" data-icon="plus" data-iconpos="left"
-           class="ui-btn-right">
-            New
-        </a>
-    </div>
-    <div data-role="content">
-
-
-    </div>
-    <div data-role="footer" data-theme="b" data-position="fixed">
-        <div data-role="navbar" data-iconpos="top">
-            <ul>
-                <li>
-                    <a href="#home-page" data-theme="" data-icon="home">
-                        Mine
-                    </a>
-                </li>
-                <li>
-                    <a href="#browse-page" data-theme="" data-icon="grid">
-                        Browse
-                    </a>
-                </li>
-                <li>
-                    <a href="#profile-page" data-theme="" data-icon="gear">
-                        Profile
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</div> -->
 
 <!-- Search Result Page-->
 
@@ -487,7 +414,7 @@
             <ul>
                 <li>
                     <a href="#browse-page" data-theme="" data-icon="">
-                        Nearby
+                        by
                     </a>
                 </li>
                 <li>
@@ -504,43 +431,11 @@
         </div>
     </div>
     <div data-role="content">
-        <ul data-role="listview" data-divider-theme="b" data-inset="false">
+        <ul id="top-gripe-list" data-role="listview" data-divider-theme="b" data-inset="false">
             <li data-role="list-divider">
                 Top Gripe of the Month
             </li>
-            <li data-theme="c">
-                <a href="#single-gripe-page" data-transition="slide">
-                    Gripe 1
-                </a>
-            </li>
-            <li data-theme="c">
-                <a href="#single-gripe-page" data-transition="slide">
-                    Gripe 2
-                </a>
-            </li>
-            <li data-theme="c">
-                <a href="#single-gripe-page" data-transition="slide">
-                    Gripe 3
-                </a>
-            </li>
-            <li data-role="list-divider">
-                Trending Gripe
-            </li>
-            <li data-theme="c">
-                <a href="#single-gripe-page" data-transition="slide">
-                    Gripe 4
-                </a>
-            </li>
-            <li data-theme="c">
-                <a href="#single-gripe-page" data-transition="slide">
-                    Gripe 5
-                </a>
-            </li>
-            <li data-theme="c">
-                <a href="#single-gripe-page" data-transition="slide">
-                    Gripe 6
-                </a>
-            </li>
+
         </ul>
     </div>
     <div data-role="footer" data-theme="b" data-position="fixed">
@@ -931,27 +826,7 @@
         </a>
         <!--         <a data-role="button" href="#home-page">
         -->    </div>
-    <div data-role="footer" data-theme="b" data-position="fixed">
-        <div data-role="navbar" data-iconpos="top">
-            <ul>
-                <li>
-                    <a href="#home-page" data-theme="" data-icon="home">
-                        Mine
-                    </a>
-                </li>
-                <li>
-                    <a href="#browse-page" data-theme="" data-icon="grid">
-                        Browse
-                    </a>
-                </li>
-                <li>
-                    <a href="#profile-page" data-theme="" data-icon="gear">
-                        Profile
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
+
 </div>
 
 <!-- Single Non-Serious Gripe  -->
@@ -979,10 +854,7 @@
             </li>
         </ul>
 
-        <ul data-role="listview" data-theme="d" data-inset="true">
-            <img src="https://maps.googleapis.com/maps/api/staticmap?center=Bobby dodd&amp;zoom=15&amp;size=288x200&amp;markers=Bobby dodd statium&amp;sensor=false"
-                 width="288" height="200">
-        </ul>
+
         <!--        <h2 id="single-gripe-title">
                     Fix GT Football team !
                 </h2>
@@ -1017,70 +889,38 @@
             </div>-->
 
     </div>
+</div>
 
-    <!-- Single Serious Gripe  -->
-    <div data-role="page" data-theme="b" id="single-serious-page">
-        <div data-theme="b" data-role="header">
-            <h3>
-                Gripe
-            </h3>
-            <a data-role="button" href="#home-page" data-icon="plus" data-iconpos="left"
-               class="ui-btn-right">
-                New
-            </a>
-        </div>
-        <div data-role="content">
-            <h2>
-                Broken Door TSRB ...
-            </h2>
-            <div class="ui-grid-a">
-                <div class="ui-block-a">
-                    <div style="display: inline">
-                        <img style="width: 90px; height: 100px" src="http://octopus.marsci.uga.edu/images/ShadowHeadIcon.jpg">
-                    </div>
-                </div>
-                <div class="ui-block-b">
-                    <div>
-                        <p>
-                            Anonymous
-                        </p>
-                        <p>
-                            <span style="font-size: xx-small; " data-mce-style="font-size: xx-small;">
-                                3 Year Student
-                            </span>
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div>
-                <p>
-                    There is a broken Door TSRB. It seems to lock soemtimes. The latch on
-                    the inside of the door seems to jam only after some body lets the door
-                    slam. I am afraid this will represent a security risk maybe allowing someone
-                    to sneak in the building to steel something.
-                </p>
-            </div>
-            <img src="https://maps.googleapis.com/maps/api/staticmap?center=Tsrb atlanta&amp;zoom=17&amp;size=288x200&amp;markers=Tsrb atlanta&amp;sensor=false" width="288" height="200">
-        </div>
-        <div data-role="footer" data-theme="b" data-position="fixed">
-            <div data-role="navbar" data-iconpos="top">
-                <ul>
-                    <li>
-                        <a href="#home-page" data-theme="" data-icon="home">
-                            Mine
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#browse-page" data-theme="" data-icon="grid">
-                            Browse
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#profile-page" data-theme="" data-icon="gear">
-                            Profile
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
+
+<!-- Single Serious Gripe  -->
+<div data-role="page" data-theme="b" id="single-gripe-popup">
+    <div data-theme="b" data-role="header">
+        <h3>
+            Gripe
+        </h3>
     </div>
+    <div data-role="content">
+        <ul data-role="listview" data-theme="d" data-inset="true">
+            <li>
+                <img id="single-gripe-popup-user-img" style="width: 100px; height: 100px" src="http://4.bp.blogspot.com/_mwIrvjgUWmc/TO__n3ejOoI/AAAAAAAADm8/AqHyfDOU7-w/S220/Chris_2010_StPaulsmall.jpg">
+                <h2 id="single-gripe-popup-user-name">Professor Bud</h2>
+            </li>
+        </ul>
+
+        <ul data-role="listview" data-theme="d" data-inset="true">
+            <li id="single-gripe-popup-title">
+                <h2>Fix GT Football team !</h2>
+            </li>
+            <li id="single-gripe-popup-description">
+                I can't believe Miami beat us this weekend!!!! We need a new quarterback.
+                errrr aghhh!!!!!!! &nbsp;
+            </li>
+        </ul>
+
+        <ul data-role="listview" data-theme="d" data-inset="true">
+        </ul>
+
+
+    </div>
+</div>
+
