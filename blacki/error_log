@@ -1,0 +1,37 @@
+[30-Sep-2012 17:21:09] PHP Parse error:  syntax error, unexpected T_STRING, expecting '&' or T_VARIABLE in /third/nyancatzzz/gtmob/base_widget/simple.php on line 4
+[30-Sep-2012 17:21:10] PHP Parse error:  syntax error, unexpected T_STRING, expecting '&' or T_VARIABLE in /third/nyancatzzz/gtmob/base_widget/simple.php on line 4
+[30-Sep-2012 17:21:10] PHP Parse error:  syntax error, unexpected T_STRING, expecting '&' or T_VARIABLE in /third/nyancatzzz/gtmob/base_widget/simple.php on line 4
+[30-Sep-2012 17:21:11] PHP Parse error:  syntax error, unexpected T_STRING, expecting '&' or T_VARIABLE in /third/nyancatzzz/gtmob/base_widget/simple.php on line 4
+[30-Sep-2012 17:21:11] PHP Parse error:  syntax error, unexpected T_STRING, expecting '&' or T_VARIABLE in /third/nyancatzzz/gtmob/base_widget/simple.php on line 4
+[30-Sep-2012 17:21:11] PHP Parse error:  syntax error, unexpected T_STRING, expecting '&' or T_VARIABLE in /third/nyancatzzz/gtmob/base_widget/simple.php on line 4
+[30-Sep-2012 17:21:12] PHP Parse error:  syntax error, unexpected T_STRING, expecting '&' or T_VARIABLE in /third/nyancatzzz/gtmob/base_widget/simple.php on line 4
+[30-Sep-2012 17:21:12] PHP Parse error:  syntax error, unexpected T_STRING, expecting '&' or T_VARIABLE in /third/nyancatzzz/gtmob/base_widget/simple.php on line 4
+[30-Sep-2012 17:21:12] PHP Parse error:  syntax error, unexpected T_STRING, expecting '&' or T_VARIABLE in /third/nyancatzzz/gtmob/base_widget/simple.php on line 4
+[30-Sep-2012 17:21:12] PHP Parse error:  syntax error, unexpected T_STRING, expecting '&' or T_VARIABLE in /third/nyancatzzz/gtmob/base_widget/simple.php on line 4
+[30-Sep-2012 17:21:12] PHP Parse error:  syntax error, unexpected T_STRING, expecting '&' or T_VARIABLE in /third/nyancatzzz/gtmob/base_widget/simple.php on line 4
+[30-Sep-2012 17:23:20] PHP Parse error:  syntax error, unexpected T_STRING, expecting '&' or T_VARIABLE in /third/nyancatzzz/gtmob/base_widget/simple.php on line 4
+[30-Sep-2012 17:23:21] PHP Parse error:  syntax error, unexpected T_STRING, expecting '&' or T_VARIABLE in /third/nyancatzzz/gtmob/base_widget/simple.php on line 4
+[30-Sep-2012 17:23:22] PHP Parse error:  syntax error, unexpected T_STRING, expecting '&' or T_VARIABLE in /third/nyancatzzz/gtmob/base_widget/simple.php on line 4
+[30-Sep-2012 17:23:33] PHP Parse error:  syntax error, unexpected T_STRING, expecting '&' or T_VARIABLE in /third/nyancatzzz/gtmob/base_widget/simple.php on line 4
+[30-Sep-2012 17:25:21] PHP Parse error:  syntax error, unexpected T_STRING, expecting '&' or T_VARIABLE in /third/nyancatzzz/gtmob/base_widget/simple.php on line 4
+[30-Sep-2012 17:25:22] PHP Parse error:  syntax error, unexpected T_STRING, expecting '&' or T_VARIABLE in /third/nyancatzzz/gtmob/base_widget/simple.php on line 4
+[30-Sep-2012 17:25:23] PHP Parse error:  syntax error, unexpected T_STRING, expecting '&' or T_VARIABLE in /third/nyancatzzz/gtmob/base_widget/simple.php on line 4
+[30-Sep-2012 17:25:24] PHP Parse error:  syntax error, unexpected T_STRING, expecting '&' or T_VARIABLE in /third/nyancatzzz/gtmob/base_widget/simple.php on line 4
+[30-Sep-2012 17:25:24] PHP Parse error:  syntax error, unexpected T_STRING, expecting '&' or T_VARIABLE in /third/nyancatzzz/gtmob/base_widget/simple.php on line 4
+[30-Sep-2012 17:25:34] PHP Parse error:  syntax error, unexpected T_STRING, expecting '&' or T_VARIABLE in /third/nyancatzzz/gtmob/base_widget/simple.php on line 4
+[30-Sep-2012 17:25:35] PHP Parse error:  syntax error, unexpected T_STRING, expecting '&' or T_VARIABLE in /third/nyancatzzz/gtmob/base_widget/simple.php on line 4
+[30-Sep-2012 17:25:36] PHP Parse error:  syntax error, unexpected T_STRING, expecting '&' or T_VARIABLE in /third/nyancatzzz/gtmob/base_widget/simple.php on line 4
+[30-Sep-2012 17:25:38] PHP Parse error:  syntax error, unexpected T_STRING, expecting '&' or T_VARIABLE in /third/nyancatzzz/gtmob/base_widget/simple.php on line 4
+[30-Sep-2012 17:25:38] PHP Parse error:  syntax error, unexpected T_STRING, expecting '&' or T_VARIABLE in /third/nyancatzzz/gtmob/base_widget/simple.php on line 4
+[30-Sep-2012 17:25:39] PHP Parse error:  syntax error, unexpected T_STRING, expecting '&' or T_VARIABLE in /third/nyancatzzz/gtmob/base_widget/simple.php on line 4
+[01-Oct-2012 17:55:38] PHP Notice:  Use of undefined constant s - assumed 's' in Unknown(0) : Runkit_Sandbox Eval Code on line 1
+[01-Oct-2012 17:56:03] PHP Notice:  Use of undefined constant s - assumed 's' in Unknown(0) : Runkit_Sandbox Eval Code on line 1
+[01-Oct-2012 17:56:06] PHP Notice:  Use of undefined constant s - assumed 's' in Unknown(0) : Runkit_Sandbox Eval Code on line 1
+[01-Oct-2012 17:56:07] PHP Notice:  Use of undefined constant s - assumed 's' in Unknown(0) : Runkit_Sandbox Eval Code on line 1
+[01-Oct-2012 17:56:41] PHP Notice:  Undefined variable: str in /third/nyancatzzz/gtmob/base_widget/gripe.php on line 16
+[01-Oct-2012 17:56:41] PHP Notice:  Undefined variable: str in /third/nyancatzzz/gtmob/base_widget/gripe.php on line 17
+[01-Oct-2012 17:56:41] PHP Notice:  Use of undefined constant s - assumed 's' in Unknown(0) : Runkit_Sandbox Eval Code on line 1
+[01-Oct-2012 17:57:40] PHP Notice:  Use of undefined constant s - assumed 's' in Unknown(0) : Runkit_Sandbox Eval Code on line 1
+[01-Oct-2012 17:58:45] PHP Notice:  Use of undefined constant s - assumed 's' in Unknown(0) : Runkit_Sandbox Eval Code on line 1
+[01-Oct-2012 17:59:00] PHP Notice:  Use of undefined constant s - assumed 's' in Unknown(0) : Runkit_Sandbox Eval Code on line 1
+[01-Oct-2012 17:59:11] PHP Notice:  Use of undefined constant s - assumed 's' in Unknown(0) : Runkit_Sandbox Eval Code on line 1

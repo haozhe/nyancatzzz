@@ -327,6 +327,12 @@ function setGripePage(page,gripe){
     if(gripe.gripe_description != "")$(page + "-description").html(gripe.gripe_description).show();
     $(page + "-user-name").html(gripe.username);
     $(page + "-user-img").attr('src',gripe.img_url);
+    $(page + "-voteup .ui-btn-text").html(gripe.voting_up);
+    
+//    var button_id = page + "-voteup";
+//    $(button_id).remove();
+//    var button = '<a data-role="button" data-icon="plus" class="ui-btn-right" id="'+page+'-voteup">'+gripe.voting_up+'</a>'
+//    $(button).appendTo(page + "page ");
     
 }
 

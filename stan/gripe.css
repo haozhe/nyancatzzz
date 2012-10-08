@@ -1,0 +1,15 @@
+/* 
+    Document   : gripe
+    Created on : Oct 2, 2012, 12:44:08 AM
+    Author     : haozheli
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+root { 
+    display: block;
+
+}
+
+.containing-element .ui-slider-switch { width: 9em }
+

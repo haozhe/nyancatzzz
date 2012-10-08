@@ -6,62 +6,23 @@ var data_obj = {};
 
 $(document).ready(function() {
     
-
-    $('#username').change(function() {
-        data_obj.CAS_username = $(this).val();
-        checkUser(data_obj);     
-    // console.log($('username').value);
-    });
-
-
+    
     //After #home-mine-page is created, execute the following to get a list of gripes 
     $("#home-page").bind("pagebeforecreate", function (event){
-        $("#home_button").hide();
-
         bindFooter();
         bindBrosweNavbar();
         
-        $("#mine-tab").trigger("click");
-
-
+        $("#home_button").hide();
     });
+    
+    initializeMap();
+    
+    //Bind footer
+    //bindFooter();
 
-    //Bind page hide event for single-gripe-page with function deleting the #map_canvas
-    $('#single-gripe-page').live('pagehide', function (){
-        $("#map_canvas").remove();
+    //Bind browse navbar
+    //bindBrosweNavbar();
 
-
-
-    });
-
-    $("#browse-nearby-tab").click(function(){
-        $("#browse-nearby-content").show();
-        $("#browse-top-content").hide();
-        $("#browse-search-content").hide();
-
-
-        // alert($("#browse-content").height());
-        // $("google-map").css("height", $("#browse-nearby-content").height());
-        initMultMap({
-            'key': 'location', 
-            'lat':'33.77', 
-            'lon':'-84.3', 
-            'dist':'10'
-        });
-        
-    });
-
-    //For Browse-Search Page
-    $("#browse-search-submit").click(function (){
-        var keyword = $("#browse-search-keyword").val();
-        getGripes({
-            'key':'keyword', 
-            'value': keyword
-        }, "#search-gripe-list", "Search Results")
-        $.mobile.changePage("#search-result-page");
-    });
-
-    //For Add New Gripe Page
     $("#gripetitle").change(function(){ 
         data_obj.gripe_title = $(this).val();
     });
@@ -71,36 +32,54 @@ $(document).ready(function() {
     });
 
     $('#upload_img').click(function() {
+        alert("Implement upload popup")
 
-        $( "#popupLoadImg" ).dialog({ 
-            'modal': true, 
-            'width': 530, 
-            'title': result.summary, 
-            'resizable': false, 
-            'draggable': false 
-        });
+    // $( "#popupLoadImg" ).popup( "open" );
 
     });
 
-  
+    // $('#upload_img').bind({
+    //    popupbeforeposition: function(event, ui) { ... }
+    // });
+
+
+
     $( "#geo_toggle" ).bind( "change", function(event, ui) {
         if($('select[name="geo_toggle"]').val()=="on"){
             //call geolocation stuff
-            getLocation();    
+            alert("Launch geolocation");
+    
         }; 
     });
 
-    
+
+    // $( '#geo_toggle').on( 'slidestop', function( event ) { 
+    //     if($('select[name="geo_toggle"]').val()=="on"){
+    //         //call geolocation stuff
+    //         alert("Launch geolocation");
+            
+    //     };
+    // });
+
+    // if($('select[name="geo_toggle"]').val()=="on"){
+    //   //call geolocation stuff
+    //   alert("Launch geolocation");
+
+    // }; 
+
+
+
     $('#submit_gripe').click(function() {
         data_obj.user_id = user_id;
         data_obj.anon = $('select[name="anon_select"]').val();      
         data_obj.serious = $('select[name="serious_select"]').val();
         data_obj.category_id = $('select[name="cat_select"]').val();
         if($('select[name="geo_toggle"]').val()=="on"){
-            console.log(data_obj.latitude+" "+data_obj.longitude);
+            alert("Launch geolocation");
 
         }; 
 
+        // console.log("category"+data_obj.category_id);
         if(data_obj.category_id=="New"){
             alert("Implement create a new category");
         }
@@ -109,43 +88,27 @@ $(document).ready(function() {
             alert("You must specify a Gripe");
         }else{
             addGripe(data_obj);
-            var li = '<li data-theme="c">';
-            li += '<a href="#single-gripe-page" data-transition="slide">';
-            li += data_obj.gripe_title;
-            li += '<span class="ui-li-count">';
-            li += 'unsolved';
-            li += '</span>';
-            li += '</a>';
-            li += '</li>';
-            $('#my-gripe-list li:first-child').after(li);
-            $('#my-gripe-list').listview("refresh");
-            $.mobile.changePage('#home-page')
         }
- 
+
+        var li = '<li data-theme="c">';
+        li += '<a href="#single-gripe-page" data-transition="slide">';
+        li += data_obj.gripe_title;
+        li += '<span class="ui-li-count">';
+        li += 'unsolved';
+        li += '</span>';
+        li += '</a>';
+        li += '</li>';
+
+        $('#my-gripe-list li:first-child').after(li);
+        // $('#my-gripe-list li:first-child').after(li).listview("refresh");
+        $('#my-gripe-list').listview("refresh");
+
+        $.mobile.changePage('#home-mine-page')
         return false;
     });
  
 });
 
-
-function getLocation()
-{
-    if (navigator.geolocation)
-    {
-        navigator.geolocation.getCurrentPosition(setPosition);
-    }
-    else{
-        alert("Geolocation is not supported by this browser.");
-    }
-}
-
-function setPosition(position)
-{
-    data_obj.latitude = position.coords.latitude;
-    data_obj.longitude = position.coords.longitude;
-   
-}
-    
 
 
 function getMineContent(){
@@ -162,13 +125,13 @@ function bindFooter(){
         $("#browse-navbar").hide();
         
         getGripes({
-            'key':'user_id',
-            'value':user_id
+            'u':user_id
         },"#my-gripe-list", "My Gripes");
         
         
     });
-
+    
+    $("#mine-tab").click();
     
     $("#browse-tab").click(function () {
         $("#mine-content").hide();
@@ -176,9 +139,6 @@ function bindFooter(){
         $("#profile-content").hide();
         
         $("#browse-navbar").show();
-        
-                
-        $("#browse-nearby-tab").trigger("click");
     });
     
     $("#profile-tab").click(function () {
@@ -193,26 +153,16 @@ function bindFooter(){
 }
 
 function bindBrosweNavbar(){
-    $("#browse-nearby-content").show();
-    $("#browse-top-content").hide();
-    $("#browse-search-content").hide();
-    
     $("#browse-nearby-tab").click(function(){
         $("#browse-nearby-content").show();
         $("#browse-top-content").hide();
         $("#browse-search-content").hide();
-        getLocation();
     });
 
     $("#browse-top-tab").click(function(){
         $("#browse-nearby-content").hide();
         $("#browse-top-content").show();
         $("#browse-search-content").hide();
-        
-        getGripes({
-            'key':'top'
-        }, '#top-gripe-list', 'Top Gripes');
-
     });
     
     $("#browse-search-tab").click(function(){
@@ -221,7 +171,21 @@ function bindBrosweNavbar(){
         $("#browse-search-content").show();
     });
     
-
+    $("#browse-nearby-tab").click();
 }
-   
+//Stan to Blacki: you should implement js function calls to call all apis below, they are just like the functions above
+//necessary data is in the api doc
+//remember to change type according to the input type in the api doc
+//url is also in the api doc
     
+    
+    
+function initializeMap() {
+    var mapOptions = {
+        center: new google.maps.LatLng(-34.397, 150.644),
+        zoom: 8,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    var map = new google.maps.Map(document.getElementById("google-map"),
+        mapOptions);
+}

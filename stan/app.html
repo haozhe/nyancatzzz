@@ -6,8 +6,11 @@
     #home_button {display:none;}
 </style>
 
+<script type="text/javascript"
+        src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDtBKCq7u-zIeSPFewvAtM-BgAFZ83CJ7Y&sensor=true">
+</script>
 
-<!--<div data-role="page" id="test_page">
+<div data-role="page" id="test_page">
     <div data-role='header' data-position='inline' data-theme='d'>
         <h1>Sample Widget Hello World ~~~</h1>
         <a href="#" data-icon='add' data-transition="pop">Other</a>
@@ -16,14 +19,11 @@
     <div id="content" data-role="content">
 
 
-        Testing APIs
+        <!--Testing APIs-->
         <ul data-role="listview">
             <li data-role="list-divider">APIs for Gripe</li>
 
-            <li><a onclick="getGripes({'key': 'location', 'lat':'33.77', 'lon':'-84.3', 'dist':'10'})">Get a List of 10 Gripes within 1 mile of user</a></li>
-            <li><a onclick="getGripes({'key': 'top'})">Get a List of top 10 Gripes </a></li>
-            <li><a onclick="getGripes({'key': 'keyword', 'value':'test'})">Get a List of Gripes with keyword = test</a></li>
-            <li><a onclick="getGripes({'key': 'user_id', 'value':'3'})">Get a List of Gripes with u = 0 (user id)</a></li>
+            <li><a onclick="getGripes({'u': 3})">Get a List of Gripes with u = 0 (user id)</a></li>
             <li><a onclick="addGripe({'user_id':3, 'latitude':12.0009 , 'gripe_title':'some gripe','gripe_description':'some gripe'})">Add a single Gripe with test title & content</a></li>
             <li><a onclick="getGripe(1)">Get a single Gripe with gripe id = 1</a></li>
             <li><a onclick="updateGripe(1, {'status': 1, 'vote':1})">Update gripe #1 to status 1 and vote +1</a></li>
@@ -44,13 +44,14 @@
         <div id='PutResult'></div>
         <div id='DeleteResult'></div>
     </div>
-</div>-->
+</div>
 
 <div data-role="page" data-theme="b" id="login-page">
     <div data-theme="b" data-role="header">
         <h3>
             Gripe
         </h3>
+        <a data-role="button" href="#test_page">Test</a>
     </div>
     <div data-role="content">
         <a href="">
@@ -62,22 +63,22 @@
             <fieldset data-role="controlgroup">
                 <label for="textinput2">
                 </label>
-                <input name="" id="username" placeholder="Username" value="" type="text">
+                <input name="" id="textinput2" placeholder="Username" value="" type="text">
             </fieldset>
         </div>
         <div data-role="fieldcontain">
             <fieldset data-role="controlgroup">
                 <label for="textinput3">
                 </label>
-                <input name="" id="password" placeholder="Password" value="" type="password">
+                <input name="" id="textinput3" placeholder="Password" value="" type="text">
             </fieldset>
         </div>
         <a data-role="button" href="#home-page">
             Login
         </a>
-        <!--        <a data-role="button" href="#intro-page">
-                    Introduction
-                </a>-->
+        <a data-role="button" href="#intro-page">
+            Introduction
+        </a>
     </div>
 
 </div>
@@ -147,10 +148,10 @@
         <h3>
             Gripe
         </h3>
-        <!--        <a data-role="button" href="#notification-page" data-icon="info" data-iconpos="left"
-                   class="ui-btn-left">
-                    Messages
-                </a>-->
+        <a data-role="button" href="#notification-page" data-icon="info" data-iconpos="left"
+           class="ui-btn-left">
+            Messages
+        </a>
         <a data-role="button" href="#add-gripe-page" data-icon="plus" data-iconpos="left"
            class="ui-btn-right">
             New
@@ -158,7 +159,7 @@
         <div id="browse-navbar" data-role="navbar" data-iconpos="no">
             <ul>
                 <li>
-                    <a id="browse-nearby-tab" data-theme="" data-icon="" class="ui-btn-active">
+                    <a id="browse-nearby-tab" data-theme="" data-icon="" class="ui-btn-active ui-state-persist">
                         Nearby
                     </a>
                 </li>
@@ -177,22 +178,91 @@
     </div>
     <div data-role="content" id="content-holder">
         <div id="mine-content">
+
             <ul id ="my-gripe-list" data-role="listview" data-divider-theme="b" data-inset="false">
+
+                <!--        <li data-theme="c">
+                            <a href="#single-serious-page" data-transition="slide">
+                                Broken Door TSRB ...
+                                <span class="ui-li-count">
+                                    Fixed
+                                </span>
+                            </a>
+                        </li>
+                        <li data-theme="d">
+                            <a href="#single-gripe-page" data-transition="slide">
+                                No Wifi in Waffle Hou...
+                                <span class="ui-li-count">
+                                    Pending
+                                </span>
+                            </a>
+                        </li>
+                        <li data-theme="c">
+                            <a href="#single-gripe-page" data-transition="slide">
+                                2Many ppl in Career F...
+                                <span class="ui-li-count">
+                                    Pending
+                                </span>
+                            </a>
+                        </li>
+                        <li data-theme="c">
+                            <a href="#single-gripe-page" data-transition="slide">
+                                Fix GT Football team !
+                                <span class="ui-li-count">
+                                    Pending
+                                </span>
+                            </a>
+                        </li>-->
             </ul>
         </div>
 
         <div id="browse-content">
 
             <div id="browse-nearby-content">
+                <!--                <img src="https://maps.googleapis.com/maps/api/staticmap?center=85 5th St NW Atlanta, GA 30308&amp;zoom=14&amp;size=288x200&amp;markers=85 5th St NW Atlanta, GA 30308&amp;sensor=false"
+                                     width="288" height="200">-->
 
+                <div id ="google-map" style="width:90%; height:400px;"></div>
             </div>
 
             <div id="browse-top-content">
-                <ul id="top-gripe-list" data-role="listview" data-divider-theme="b" data-inset="false">
+                <ul data-role="listview" data-divider-theme="b" data-inset="false">
                     <li data-role="list-divider">
                         Top Gripe of the Month
                     </li>
-
+                    <li data-theme="c">
+                        <a href="#single-gripe-page" data-transition="slide">
+                            Gripe 1
+                        </a>
+                    </li>
+                    <li data-theme="c">
+                        <a href="#single-gripe-page" data-transition="slide">
+                            Gripe 2
+                        </a>
+                    </li>
+                    <li data-theme="c">
+                        <a href="#single-gripe-page" data-transition="slide">
+                            Gripe 3
+                        </a>
+                    </li>
+                    <li data-role="list-divider">
+                        Trending Gripe
+                    </li>
+                    <li data-theme="c">
+                        <a href="#single-gripe-page" data-transition="slide">
+                            Gripe 4
+                        </a>
+                    </li>
+                    <li data-theme="c">
+                        <a href="#single-gripe-page" data-transition="slide">
+                            Gripe 5
+                        </a>
+                    </li>
+                    <li data-theme="c">
+                        <a href="#single-gripe-page" data-transition="slide">
+                            Gripe 6
+                        </a>
+                    </li>
                 </ul>
             </div>
 
@@ -202,7 +272,7 @@
                     <fieldset data-role="controlgroup">
                         <label for="searchinput1">
                         </label>
-                        <input name="" id="browse-search-keyword" placeholder="Keyword" value="" type="search">
+                        <input name="" id="searchinput1" placeholder="Keyword" value="" type="search">
                     </fieldset>
                 </div>
                 <div data-role="collapsible-set">
@@ -255,9 +325,7 @@
                         </div>
                     </div>
                 </div>
-                <input type="submit" value="Search" id="browse-search-submit">
-
-
+                <input type="submit" value="Search">
             </div>
 
 
@@ -300,7 +368,7 @@
         <div data-role="navbar" data-iconpos="top">
             <ul>
                 <li>
-                    <a id="mine-tab" data-theme="" data-icon="home" class="ui-btn-active">
+                    <a id="mine-tab" data-theme="" data-icon="home">
                         Mine
                     </a>
                 </li>
@@ -319,17 +387,45 @@
     </div>
 </div>
 
-
-<!-- Search Result Page-->
-
-<div data-role="page" data-theme="b" id="search-result-page">
-    <div data-role="header" data-theme="b">
-        <a data-rel="back" data-role="button">Back</a>
-        <h3>Search Result</h3>
+<!-- Home  -->
+<div data-role="page" data-theme="b" id="home-mine-page">
+    <div data-theme="b" data-role="header">
+        <h3>
+            Gripe
+        </h3>
+        <a data-role="button" href="#notification-page" data-icon="info" data-iconpos="left"
+           class="ui-btn-left">
+            Messages
+        </a>
+        <a data-role="button" href="#add-gripe-page" data-icon="plus" data-iconpos="left"
+           class="ui-btn-right">
+            New
+        </a>
     </div>
     <div data-role="content">
-        <ul id ="search-gripe-list" data-role="listview" data-divider-theme="b" data-inset="false">
-        </ul>
+
+
+    </div>
+    <div data-role="footer" data-theme="b" data-position="fixed">
+        <div data-role="navbar" data-iconpos="top">
+            <ul>
+                <li>
+                    <a href="#home-mine-page" data-theme="" data-icon="home">
+                        Mine
+                    </a>
+                </li>
+                <li>
+                    <a href="#browse-page" data-theme="" data-icon="grid">
+                        Browse
+                    </a>
+                </li>
+                <li>
+                    <a href="#profile-page" data-theme="" data-icon="gear">
+                        Profile
+                    </a>
+                </li>
+            </ul>
+        </div>
     </div>
 </div>
 
@@ -382,7 +478,7 @@
         <div data-role="navbar" data-iconpos="top">
             <ul>
                 <li>
-                    <a href="#home-page" data-theme="" data-icon="home">
+                    <a href="#home-mine-page" data-theme="" data-icon="home">
                         Mine
                     </a>
                 </li>
@@ -414,7 +510,7 @@
             <ul>
                 <li>
                     <a href="#browse-page" data-theme="" data-icon="">
-                        by
+                        Nearby
                     </a>
                 </li>
                 <li>
@@ -431,18 +527,50 @@
         </div>
     </div>
     <div data-role="content">
-        <ul id="top-gripe-list" data-role="listview" data-divider-theme="b" data-inset="false">
+        <ul data-role="listview" data-divider-theme="b" data-inset="false">
             <li data-role="list-divider">
                 Top Gripe of the Month
             </li>
-
+            <li data-theme="c">
+                <a href="#single-gripe-page" data-transition="slide">
+                    Gripe 1
+                </a>
+            </li>
+            <li data-theme="c">
+                <a href="#single-gripe-page" data-transition="slide">
+                    Gripe 2
+                </a>
+            </li>
+            <li data-theme="c">
+                <a href="#single-gripe-page" data-transition="slide">
+                    Gripe 3
+                </a>
+            </li>
+            <li data-role="list-divider">
+                Trending Gripe
+            </li>
+            <li data-theme="c">
+                <a href="#single-gripe-page" data-transition="slide">
+                    Gripe 4
+                </a>
+            </li>
+            <li data-theme="c">
+                <a href="#single-gripe-page" data-transition="slide">
+                    Gripe 5
+                </a>
+            </li>
+            <li data-theme="c">
+                <a href="#single-gripe-page" data-transition="slide">
+                    Gripe 6
+                </a>
+            </li>
         </ul>
     </div>
     <div data-role="footer" data-theme="b" data-position="fixed">
         <div data-role="navbar" data-iconpos="top">
             <ul>
                 <li>
-                    <a href="#home-page" data-theme="" data-icon="home">
+                    <a href="#home-mine-page" data-theme="" data-icon="home">
                         Mine
                     </a>
                 </li>
@@ -554,7 +682,7 @@
         <div data-role="navbar" data-iconpos="top">
             <ul>
                 <li>
-                    <a href="#home-page" data-theme="" data-icon="home">
+                    <a href="#home-mine-page" data-theme="" data-icon="home">
                         Mine
                     </a>
                 </li>
@@ -610,7 +738,7 @@
         <div data-role="navbar" data-iconpos="top">
             <ul>
                 <li>
-                    <a href="#home-page" data-theme="" data-icon="home">
+                    <a href="#home-mine-page" data-theme="" data-icon="home">
                         Mine
                     </a>
                 </li>
@@ -638,7 +766,7 @@
            class="ui-btn-right">
             New
         </a>
-        <a data-role="button" data-rel="back" href="#home-page" data-icon="arrow-l"
+        <a data-role="button" data-rel="back" href="#home-mine-page" data-icon="arrow-l"
            data-iconpos="left" class="ui-btn-left">
             Back
         </a>
@@ -670,7 +798,7 @@
         <div data-role="navbar" data-iconpos="top">
             <ul>
                 <li>
-                    <a href="#home-page" data-theme="" data-icon="home">
+                    <a href="#home-mine-page" data-theme="" data-icon="home">
                         Mine
                     </a>
                 </li>
@@ -695,7 +823,7 @@
         <h3>
             Gripe
         </h3>
-        <a data-role="button" data-rel="back" data-rel="back" data-icon="arrow-l"
+        <a data-role="button" data-rel="back" href="#add-gripe-page" data-icon="arrow-l"
            data-iconpos="left" class="ui-btn-left">
             Back
         </a>
@@ -759,7 +887,7 @@
                     Attach an Image
                 </a>
 
-                <div data-role="dialog" id="popupLoadImg">
+                <div data-role="popup" id="popupLoadImg">
                     <a data-role="button" id="camera" data-transition="pop" href="#" data-icon="check"
                        data-iconpos="left">
                         Open Camera
@@ -770,6 +898,13 @@
                     </a>
 
                 </div>
+
+                <a href="#popupBasic" data-rel="popup">Open Popup</a>
+
+                <div data-role="popup" id="popupBasic">
+                    <p>This is a completely basic popup, no options set.<p>
+                </div>
+
 
 
                 <div data-role="fieldcontain">
@@ -820,34 +955,40 @@
                 </div>
             </div>
         </div>
-        <a data-role="button" id="submit_gripe" data-transition="pop" href="#home-page" data-icon="check"
+        <a data-role="button" id="submit_gripe" data-transition="pop" href="#home-mine-page" data-icon="check"
            data-iconpos="left">
             Submit
         </a>
-        <!--         <a data-role="button" href="#home-page">
-        -->    </div>
-
+    </div>
+    <div data-role="footer" data-theme="b" data-position="fixed">
+        <div data-role="navbar" data-iconpos="top">
+            <ul>
+                <li>
+                    <a href="#home-mine-page" data-theme="" data-icon="home">
+                        Mine
+                    </a>
+                </li>
+                <li>
+                    <a href="#browse-page" data-theme="" data-icon="grid">
+                        Browse
+                    </a>
+                </li>
+                <li>
+                    <a href="#profile-page" data-theme="" data-icon="gear">
+                        Profile
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
 </div>
 
 <!-- Single Non-Serious Gripe  -->
-<div data-role="page" data-theme="b" id="single-gripe-page" data-add-back-btn="true">
+<div data-role="page" data-theme="b" id="single-gripe-page">
     <div data-theme="b" data-role="header">
         <h3>
             Gripe
         </h3>
-        <!--<a data-role="button" data-icon="plus" class="ui-btn-right" id="single-gripe-voteup"></a>-->
-        <a onclick="(function () {
-            var voteup_num = parseInt($('#single-gripe-voteup .ui-btn-text').text()) + 1;
-            $('#single-gripe-voteup .ui-btn-text').text(voteup_num);
-            alert('here');
-        }) ()
-        " data-role="button" data-icon="plus" class="ui-btn-right ui-btn ui-shadow ui-btn-corner-all ui-btn-icon-left ui-btn-up-b" id="single-gripe-voteup" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="b">
-            <span class="ui-btn-inner ui-btn-corner-all">
-                <span class="ui-btn-text">3</span>
-                <span class="ui-icon ui-icon-plus ui-icon-shadow">&nbsp;</span>
-            </span>
-        </a>
-
     </div>
     <div data-role="content">
         <ul data-role="listview" data-theme="d" data-inset="true">
@@ -867,7 +1008,10 @@
             </li>
         </ul>
 
-
+        <ul data-role="listview" data-theme="d" data-inset="true">
+            <img src="https://maps.googleapis.com/maps/api/staticmap?center=Bobby dodd&amp;zoom=15&amp;size=288x200&amp;markers=Bobby dodd statium&amp;sensor=false"
+                 width="288" height="200">
+        </ul>
         <!--        <h2 id="single-gripe-title">
                     Fix GT Football team !
                 </h2>
@@ -900,46 +1044,92 @@
                 <img src="https://maps.googleapis.com/maps/api/staticmap?center=Bobby dodd&amp;zoom=15&amp;size=288x200&amp;markers=Bobby dodd statium&amp;sensor=false"
                      width="288" height="200">
             </div>-->
-
+        <div data-role="footer" data-theme="b" data-position="fixed">
+            <div data-role="navbar" data-iconpos="top">
+                <ul>
+                    <li>
+                        <a href="#home-mine-page" data-theme="" data-icon="home">
+                            Mine
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#browse-page" data-theme="" data-icon="grid">
+                            Browse
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#profile-page" data-theme="" data-icon="gear">
+                            Profile
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
-</div>
 
-
-<!-- Single Serious Gripe  -->
-<div data-role="page" data-theme="b" id="single-gripe-popup">
-    <div data-theme="b" data-role="header">
-        <h3>
-            Gripe
-        </h3>
-        <a data-role="button" data-icon="plus" class="ui-btn-right ui-btn ui-shadow ui-btn-corner-all ui-btn-icon-left ui-btn-up-b" id="single-gripe-popup-voteup" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="b">
-            <span class="ui-btn-inner ui-btn-corner-all">
-                <span class="ui-btn-text">3</span>
-                <span class="ui-icon ui-icon-plus ui-icon-shadow">&nbsp;</span>
-            </span>
-        </a>
+    <!-- Single Serious Gripe  -->
+    <div data-role="page" data-theme="b" id="single-serious-page">
+        <div data-theme="b" data-role="header">
+            <h3>
+                Gripe
+            </h3>
+            <a data-role="button" href="#home-mine-page" data-icon="plus" data-iconpos="left"
+               class="ui-btn-right">
+                New
+            </a>
+        </div>
+        <div data-role="content">
+            <h2>
+                Broken Door TSRB ...
+            </h2>
+            <div class="ui-grid-a">
+                <div class="ui-block-a">
+                    <div style="display: inline">
+                        <img style="width: 90px; height: 100px" src="http://octopus.marsci.uga.edu/images/ShadowHeadIcon.jpg">
+                    </div>
+                </div>
+                <div class="ui-block-b">
+                    <div>
+                        <p>
+                            Anonymous
+                        </p>
+                        <p>
+                            <span style="font-size: xx-small; " data-mce-style="font-size: xx-small;">
+                                3 Year Student
+                            </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <p>
+                    There is a broken Door TSRB. It seems to lock soemtimes. The latch on
+                    the inside of the door seems to jam only after some body lets the door
+                    slam. I am afraid this will represent a security risk maybe allowing someone
+                    to sneak in the building to steel something.
+                </p>
+            </div>
+            <img src="https://maps.googleapis.com/maps/api/staticmap?center=Tsrb atlanta&amp;zoom=17&amp;size=288x200&amp;markers=Tsrb atlanta&amp;sensor=false" width="288" height="200">
+        </div>
+        <div data-role="footer" data-theme="b" data-position="fixed">
+            <div data-role="navbar" data-iconpos="top">
+                <ul>
+                    <li>
+                        <a href="#home-mine-page" data-theme="" data-icon="home">
+                            Mine
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#browse-page" data-theme="" data-icon="grid">
+                            Browse
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#profile-page" data-theme="" data-icon="gear">
+                            Profile
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
-    <div data-role="content">
-        <ul data-role="listview" data-theme="d" data-inset="true">
-            <li>
-                <img id="single-gripe-popup-user-img" style="width: 100px; height: 100px" src="http://4.bp.blogspot.com/_mwIrvjgUWmc/TO__n3ejOoI/AAAAAAAADm8/AqHyfDOU7-w/S220/Chris_2010_StPaulsmall.jpg">
-                <h2 id="single-gripe-popup-user-name">Professor Bud</h2>
-            </li>
-        </ul>
-
-        <ul data-role="listview" data-theme="d" data-inset="true">
-            <li id="single-gripe-popup-title">
-                <h2>Fix GT Football team !</h2>
-            </li>
-            <li id="single-gripe-popup-description">
-                I can't believe Miami beat us this weekend!!!! We need a new quarterback.
-                errrr aghhh!!!!!!! &nbsp;
-            </li>
-        </ul>
-
-        <ul data-role="listview" data-theme="d" data-inset="true">
-        </ul>
-
-
-    </div>
-</div>
-
