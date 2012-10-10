@@ -7,7 +7,7 @@
 </style>
 
 
-<!--<div data-role="page" id="test_page">
+<!-- <div data-role="page" id="test_page">
     <div data-role='header' data-position='inline' data-theme='d'>
         <h1>Sample Widget Hello World ~~~</h1>
         <a href="#" data-icon='add' data-transition="pop">Other</a>
@@ -19,7 +19,6 @@
         Testing APIs
         <ul data-role="listview">
             <li data-role="list-divider">APIs for Gripe</li>
-
             <li><a onclick="getGripes({'key': 'location', 'lat':'33.77', 'lon':'-84.3', 'dist':'10'})">Get a List of 10 Gripes within 1 mile of user</a></li>
             <li><a onclick="getGripes({'key': 'top'})">Get a List of top 10 Gripes </a></li>
             <li><a onclick="getGripes({'key': 'keyword', 'value':'test'})">Get a List of Gripes with keyword = test</a></li>
@@ -34,6 +33,7 @@
             <li><a onclick="updateUser(1, {'twitter': 'twitter.com/stan_ex'})">Update twitter address of user #1 to twitter.com/stan_ex</a></li>
 
             <li data-role="list-divider">APIs for Report</li>
+            <li><a onclick="sendReport({'org_id': 0})">Send blacki an email</a></li> 
             <li><a onclick="manageReport({'org_id': 0, 'user_id':0})">Manage report for org#0 and user#0</a></li>
             <li data-role="list-divider">Link for GUI</li>
             <li><a href="#login-page">Goto GUI</a></li>
@@ -44,7 +44,7 @@
         <div id='PutResult'></div>
         <div id='DeleteResult'></div>
     </div>
-</div>-->
+</div> -->
 
 <div data-role="page" data-theme="b" id="login-page">
     <div data-theme="b" data-role="header">
@@ -830,23 +830,31 @@
 </div>
 
 <!-- Single Non-Serious Gripe  -->
-<div data-role="page" data-theme="b" id="single-gripe-page" data-add-back-btn="true">
+<div data-role="page" data-theme="b" id="single-gripe-page" data-add-back-btn="true" data-gripe-id="" data-gripe-user-id="">
     <div data-theme="b" data-role="header">
         <h3>
             Gripe
         </h3>
-        <!--<a data-role="button" data-icon="plus" class="ui-btn-right" id="single-gripe-voteup"></a>-->
-        <a onclick="(function () {
-            var voteup_num = parseInt($('#single-gripe-voteup .ui-btn-text').text()) + 1;
-            $('#single-gripe-voteup .ui-btn-text').text(voteup_num);
-            alert('here');
-        }) ()
-        " data-role="button" data-icon="plus" class="ui-btn-right ui-btn ui-shadow ui-btn-corner-all ui-btn-icon-left ui-btn-up-b" id="single-gripe-voteup" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="b">
+
+        <a id="single-gripe-vote-up-button" data-role="button" data-icon="plus" class="ui-btn-right ui-btn ui-shadow ui-btn-corner-all ui-btn-icon-left ui-btn-up-b" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="b">
             <span class="ui-btn-inner ui-btn-corner-all">
-                <span class="ui-btn-text">3</span>
+                <span id="single-gripe-vote-up" class="ui-btn-text"></span>
                 <span class="ui-icon ui-icon-plus ui-icon-shadow">&nbsp;</span>
+
             </span>
         </a>
+        <!--<a data-role="button" data-icon="plus" class="ui-btn-right" id="single-gripe-voteup"></a>-->
+        <!--        <a onclick="(function () {
+                    var voteup_num = parseInt($('#single-gripe-voteup .ui-btn-text').text()) + 1;
+                    $('#single-gripe-voteup .ui-btn-text').text(voteup_num);
+                    //alert('here');
+                }) ()
+                " data-role="button" data-icon="plus" class="ui-btn-right ui-btn ui-shadow ui-btn-corner-all ui-btn-icon-left ui-btn-up-b" id="single-gripe-voteup" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="b">
+                    <span class="ui-btn-inner ui-btn-corner-all">
+                        <span class="ui-btn-text">3</span>
+                        <span class="ui-icon ui-icon-plus ui-icon-shadow">&nbsp;</span>
+                    </span>
+                </a>-->
 
     </div>
     <div data-role="content">
@@ -867,56 +875,25 @@
             </li>
         </ul>
 
-
-        <!--        <h2 id="single-gripe-title">
-                    Fix GT Football team !
-                </h2>
-                <div class="ui-grid-a">
-                    <div class="ui-block-a">
-                        <div style="display: inline">
-                            <img id="single-gripe-user-img" style="width: 100px; height: 100px" src="http://4.bp.blogspot.com/_mwIrvjgUWmc/TO__n3ejOoI/AAAAAAAADm8/AqHyfDOU7-w/S220/Chris_2010_StPaulsmall.jpg">
-                        </div>
-                    </div>
-                    <div class="ui-block-b">
-                        <div>
-                            <p id="single-gripe-user-name">
-                                Professor Bud
-                            </p>
-        
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <p id="single-gripe-description">
-                        <b>
-                            I can't believe Miami beat us this weekend!!!! We need a new quarterback.
-                            errrr aghhh!!!!!!! &nbsp;
-                        </b>
-                    </p>
-                </div>
-                <div id="single-gripe-map">
-        
-                </div>
-                <img src="https://maps.googleapis.com/maps/api/staticmap?center=Bobby dodd&amp;zoom=15&amp;size=288x200&amp;markers=Bobby dodd statium&amp;sensor=false"
-                     width="288" height="200">
-            </div>-->
-
     </div>
 </div>
 
 
 <!-- Single Serious Gripe  -->
-<div data-role="page" data-theme="b" id="single-gripe-popup">
-    <div data-theme="b" data-role="header">
+<div data-role="page" data-theme="b" id="single-gripe-popup-page">
+    <div data-theme="b" data-role="header" data-gripe-id="" data-gripe-user-id="">
         <h3>
             Gripe
         </h3>
-        <a data-role="button" data-icon="plus" class="ui-btn-right ui-btn ui-shadow ui-btn-corner-all ui-btn-icon-left ui-btn-up-b" id="single-gripe-popup-voteup" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="b">
+        <a id="single-gripe-popup-vote-up-button" data-role="button" data-icon="plus" class="ui-btn-right ui-btn ui-shadow ui-btn-corner-all ui-btn-icon-left ui-btn-up-b" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="b">
             <span class="ui-btn-inner ui-btn-corner-all">
-                <span class="ui-btn-text">3</span>
+                <span id="single-gripe-popup-vote-up" class="ui-btn-text"></span>
                 <span class="ui-icon ui-icon-plus ui-icon-shadow">&nbsp;</span>
+
             </span>
         </a>
+
+
     </div>
     <div data-role="content">
         <ul data-role="listview" data-theme="d" data-inset="true">
@@ -942,4 +919,7 @@
 
     </div>
 </div>
+
+
+
 

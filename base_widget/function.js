@@ -112,9 +112,12 @@ function getGripes(query, gripe_list_holder, gripe_list_title){
 }
 
 function getGripe(gripe_id){
+    console.log('getGripe '+ gripe_id);
     
     var mapCanvas = '<div id="map_canvas" style="height:200px;"> </div>';
-    $(mapCanvas).appendTo('#single-gripe-page div:last-child').css('opacity', 0).delay(600).animate({'opacity':'1'}, 'slow');
+    $(mapCanvas).appendTo('#single-gripe-page div:last-child').css('opacity', 0).delay(600).animate({
+        'opacity':'1'
+    }, 'slow');
 
     $.ajax({
         url: "api/gripe/"+ gripe_id,
@@ -187,7 +190,9 @@ function initMultMap(query) {
 function loadMultipleMap(local) {
     $('#google-map').remove();
     var googleMap = '<div id ="google-map" style="width:99%; height:300px "></div>';
-    $(googleMap).appendTo('#browse-nearby-content').css('opacity', 0).delay(300).animate({'opacity':'1'}, 'slow');
+    $(googleMap).appendTo('#browse-nearby-content').css('opacity', 0).delay(300).animate({
+        'opacity':'1'
+    }, 'slow');
 
 
     // alert(local);
@@ -203,7 +208,8 @@ function loadMultipleMap(local) {
                     'position':  new google.maps.LatLng(gripe.latitude,gripe.longitude),
                     'bounds': true 
                 }).click(function() {
-                    $.mobile.changePage('#single-gripe-popup',{
+                    //alert("here");
+                    $.mobile.changePage('#single-gripe-popup-page',{
                         role:'dialog'
                     });
                                 
@@ -240,8 +246,11 @@ function updateGripe(gripe_id, input){
     $.ajax({
         url:"api/gripe/" + gripe_id,
         context:document.body,
-        type:"PUT",
         data:input,
+        headers: {
+            'X-HTTP-Method-Override': 'PUT'
+        },
+        type: 'POST',
         success: function (data) {
             console.log(data);    
         }
@@ -304,6 +313,63 @@ function updateUser(user_id, input){
     
 }
 
+function setGripePage(page,gripe){
+    $(page + "-description").hide();
+    
+    $(page + "-title").html(gripe.gripe_title);
+    if(gripe.gripe_description != "")$(page + "-description").html(gripe.gripe_description).show();
+    $(page + "-user-name").html(gripe.username);
+    $(page + "-user-img").attr('src',gripe.img_url);
+
+    $(page + "-page").attr({
+        "data-gripe-id": gripe.gripe_id, 
+        "data-gripe-user-id": gripe.user_id
+    });
+    
+    //    var button_id = page + "-voteup";
+    //    $(button_id).remove();
+    //    var button = '<a data-role="button" data-icon="plus" class="ui-btn-right" id="'+page+'-voteup">'+gripe.voting_up+'</a>'
+    //    $(button).appendTo(page + "page ");
+    
+    $(page + "-vote-up-button").hide();
+
+    
+    if (user_id != gripe.user_id){
+        $(page + "-vote-up").html(gripe.voting_up);
+        
+        $(page + "-vote-up-button").bind('click',function (){
+            console.log(gripe.gripe_id);
+             updateGripe(gripe.gripe_id, {
+                "type":"voting_up", 
+                "value":"1"
+            });
+            $(page + "-vote-up").html(parseInt(gripe.voting_up) + 1);
+            $(this).unbind('click');
+
+        }
+        );
+        
+        $(page + "-vote-up-button").show();
+
+    
+    
+//        $(voteUpButton).click(function (){
+//            updateGripe(gripe.gripe_id, {
+//                "type":"voting_up", 
+//                "value":"1"
+//            });
+//        
+//        });
+//    
+    }
+}
+
+function getTopGripes(){
+    
+    
+}
+
+
 //APIs for report
 function manageReport(query){
     $.ajax({
@@ -320,23 +386,18 @@ function manageReport(query){
     
 }
 
-function setGripePage(page,gripe){
-    $(page + "-description").hide();
-    
-    $(page + "-title").html(gripe.gripe_title);
-    if(gripe.gripe_description != "")$(page + "-description").html(gripe.gripe_description).show();
-    $(page + "-user-name").html(gripe.username);
-    $(page + "-user-img").attr('src',gripe.img_url);
-    $(page + "-voteup .ui-btn-text").html(gripe.voting_up);
-    
-//    var button_id = page + "-voteup";
-//    $(button_id).remove();
-//    var button = '<a data-role="button" data-icon="plus" class="ui-btn-right" id="'+page+'-voteup">'+gripe.voting_up+'</a>'
-//    $(button).appendTo(page + "page ");
-    
-}
-
-function getTopGripes(){
-    
+//APIs for report
+function sendReport(query){
+    $.ajax({
+        url: "api/report/"+ query,
+        context:document.body,
+        type:"GET",
+        data:query,
+        success:function (data){
+            console.log(data)
+            
+        }
+        
+    });
     
 }

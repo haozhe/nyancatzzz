@@ -1,5 +1,7 @@
 <?php
 
+global $_USER;
+
 include 'db_helper.php';
 
 function addGripe($post) {
@@ -17,7 +19,7 @@ function addGripe($post) {
 }
 
 //high priority
-function updateGripe($gripe_id, $status, $voting_up, $voting_down) {
+function updateGripe($gripe_id, $post) {
 //?status = # of status 0~ 3
 //& vote = 1/-1
 //return 1 sucess -1 fail
@@ -34,17 +36,32 @@ function updateGripe($gripe_id, $status, $voting_up, $voting_down) {
       //Votes down in SQL gripe table for a particular gripe
       }
      */
-    $dbQuery = sprintf("UPDATE `gripe` SET `status` = '%s' AND `voting_up` += '%s' AND `voting_down` += '%s' WHERE `gripe_id` = '%s'",
-	mysql_real_escape_string($status),
-	mysql_real_escape_string($voting_up),
-        mysql_real_escape_string($voting_down),
-	mysql_real_escape_string($gripe_id));
+    //echo 'votingup';
+    switch ($post['type']) {
+        case 'status':
+            $dbQuery = sprintf("UPDATE `gripe` SET `status` = '%s' WHERE `gripe_id` = '%s'", 
+                    mysql_real_escape_string($post['value']),
+                    mysql_real_escape_string($gripe_id));
+            break;
+        case 'voting_up':
+            //echo 'votingup';
+            $dbQuery = sprintf("UPDATE `gripe` SET `voting_up` = `voting_up`+'%s' WHERE `gripe_id` = '%s'", 
+                    mysql_real_escape_string($post['value']),
+                    mysql_real_escape_string($gripe_id));
+            break;
+        case 'voting_down':
+            $dbQuery = sprintf("UPDATE `gripe` SET `voting_down` = `voting_down`+'%s' WHERE `gripe_id` = '%s'", 
+                    mysql_real_escape_string($post['value']),
+                    mysql_real_escape_string($gripe_id));
+            break;
+        default:
+            break;
+    }
 		
     $result = getDBResultAffected($dbQuery);
 		
     header("Content-type: application/json");
     echo json_encode($result);
-    //return?
     
 }
 
@@ -102,7 +119,7 @@ function getGripesByRank() {
     $dbQuery = sprintf("SELECT * FROM `gripe` ORDER BY `voting_up` DESC LIMIT 0,10" );
     $result=getDBResultsArray($dbQuery);
     header("Content-type: application/json");
-    echo json_encode($result);
+    echo json_encode($result); 
 }
 
 function getGripesByRecent($recent) {

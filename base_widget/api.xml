@@ -65,16 +65,10 @@
             <action file='gripe.php'><![CDATA[getGripe($_REST['gripe']);]]>
             </action>
         </get>
-        <post>
-            <description><![CDATA[This is how you can create a simple item]]>
-            </description>
-            <action file='gripe.php'><![CDATA[addItem($_POST['itemValue']);]]>
-            </action>
-        </post>
         <put>
             <description><![CDATA[This is how you can update a simple item]]>
             </description>
-            <action file='simple.php'><![CDATA[updateItem($_REST['simple'],$_POST['itemValue']);]]>
+            <action file='gripe.php'><![CDATA[updateGripe($_REST['gripe'],$_POST);]]>
             </action>
         </put>
         <delete>
@@ -97,6 +91,20 @@
             <action file='user.php'><![CDATA[checkUser($_POST);]]>
             </action>
         </post>  
+    </command>
+    <command id="report" security="public">
+        <index>
+            <description><![CDATA[This is how you can send an email]]>
+            </description>
+            <action file='report.php'><![CDATA[manageReport($_GET);]]>
+            </action>
+        </index>  
+        <get>
+            <description><![CDATA[This is how you can send an email]]>
+            </description>
+            <action file='report.php'><![CDATA[sendReport($_GET);]]>
+            </action>
+        </get>  
     </command>
 </api>
 
